@@ -47,7 +47,7 @@ public class Startansicht extends JFrame {
 
 	ListSelectionModel listmodel;
 	Tabelle tabelle;
-	
+
 	TableRowSorter<DefaultTableModel> sorter;
 	StartansichtController startansichtController = new StartansichtController();
 	private final ButtonGroup buttonGroup = new ButtonGroup();
@@ -59,7 +59,6 @@ public class Startansicht extends JFrame {
 	JMenuItem mntmStudiengnge;
 	JMenuItem mntmFachgruppen;
 	JTextField searchText;
-	
 
 	public Startansicht(String nutzername, final Connection con) {
 		// Abfrage der Rolle des angemeldeten Nutzers
@@ -104,28 +103,29 @@ public class Startansicht extends JFrame {
 		lblLblbenutzer.setBounds(109, 16, 77, 14);
 		getContentPane().add(lblLblbenutzer);
 
-		btnBearbeiten = new JButton("Bearbeiten");
-		btnBearbeiten.setBounds(504, 266, 113, 23);
-		getContentPane().add(btnBearbeiten);
-		btnBearbeiten.addActionListener(actionlistener);
+		if (rolle == "Admin" || rolle == "Fachgruppenreferent") {
+			btnBearbeiten = new JButton("Bearbeiten");
+			btnBearbeiten.setBounds(504, 266, 113, 23);
+			getContentPane().add(btnBearbeiten);
+			btnBearbeiten.addActionListener(actionlistener);
 
-		btnNeu = new JButton("Neu");
-		btnNeu.addActionListener(actionlistener);
-		btnNeu.setBounds(405, 266, 89, 23);
-		getContentPane().add(btnNeu);
+			btnNeu = new JButton("Neu");
+			btnNeu.addActionListener(actionlistener);
+			btnNeu.setBounds(405, 266, 89, 23);
+			getContentPane().add(btnNeu);
 
-		JRadioButton rbtnEigene = new JRadioButton("eigene Pr\u00FCfungen");
-		rbtnEigene.setSelected(true);
-		buttonGroup.add(rbtnEigene);
-		rbtnEigene.setBounds(31, 104, 155, 23);
-		getContentPane().add(rbtnEigene);
+			JRadioButton rbtnEigene = new JRadioButton("eigene Pr\u00FCfungen");
+			rbtnEigene.setSelected(true);
+			buttonGroup.add(rbtnEigene);
+			rbtnEigene.setBounds(31, 104, 155, 23);
+			getContentPane().add(rbtnEigene);
 
-		JRadioButton rbtnFachgruppe = new JRadioButton(
-				"Pr\u00FCfungen Fachgruppe");
-		buttonGroup.add(rbtnFachgruppe);
-		rbtnFachgruppe.setBounds(185, 104, 161, 23);
-		getContentPane().add(rbtnFachgruppe);
-
+			JRadioButton rbtnFachgruppe = new JRadioButton(
+					"Pr\u00FCfungen Fachgruppe");
+			buttonGroup.add(rbtnFachgruppe);
+			rbtnFachgruppe.setBounds(185, 104, 161, 23);
+			getContentPane().add(rbtnFachgruppe);
+		}
 		setBounds(100, 100, 677, 400);
 
 		JMenuBar menuBar = new JMenuBar();
@@ -156,51 +156,55 @@ public class Startansicht extends JFrame {
 
 			}
 		});
+
 		mnEinstellungen.add(nutzerInformationen);
 
-		JMenu mnBearbeiten = new JMenu("Bearbeiten");
-		menuBar.add(mnBearbeiten);
-		mntmModule = new JMenuItem("Module");
-		mntmModule.addActionListener(actionlistener);
-		mnBearbeiten.add(mntmModule);
+		if (rolle == "Admin" || rolle == "Fachgruppenreferent") {
 
+			JMenu mnBearbeiten = new JMenu("Bearbeiten");
+			menuBar.add(mnBearbeiten);
 		
+
+			if (rolle == "Admin") {
+
+				mntmModule = new JMenuItem("Module");
+				mntmModule.addActionListener(actionlistener);
+				mnBearbeiten.add(mntmModule);
+			
+			
 		JMenuItem mntmNutzer = new JMenuItem("Nutzer");
 		mntmNutzer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		mnBearbeiten.add(mntmNutzer);	
-		
-		
-		mntmPrfungen = new JMenuItem("Pr\u00FCfungen");
-		mnBearbeiten.add(mntmPrfungen);
+		mnBearbeiten.add(mntmNutzer);
 
 		mntmStudiengnge = new JMenuItem("Studieng\u00E4nge");
 		mnBearbeiten.add(mntmStudiengnge);
 
 		mntmFachgruppen = new JMenuItem("Fachgruppen");
-		mnBearbeiten.add(mntmFachgruppen);
 
+		mnBearbeiten.add(mntmFachgruppen);
+		mntmPrfungen = new JMenuItem("Pr\u00FCfungen");
+		
+			}
+
+		mnBearbeiten.add(mntmPrfungen);
 		JMenu mnber = new JMenu("\u00DCber");
 		menuBar.add(mnber);
 
-		JMenuItem mntmFeedback = new JMenuItem("Feedback");
-		mnber.add(mntmFeedback);
+		}
+		
 
-		
-		
-		
-		
 		ActionListener myActionListener = new MyActionListener(this, con);
 		ListSelectionListener myListSelectionListener = new MyListSelectionListener(
 				this);
-		
+
 		DefaultTableModel dtm = startansichtController.aendereDtm("pruefung");
 		tabelle = new Tabelle("pruefung", dtm);
 		dtm.fireTableDataChanged();
 		validate();
-		
+
 		tabelle.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		sorter = new TableRowSorter<DefaultTableModel>(dtm);
@@ -229,18 +233,17 @@ public class Startansicht extends JFrame {
 		sp.setBounds(31, 134, 586, 121);
 
 		getContentPane().add(sp);
-		
+
 		JLabel lblSuchen = new JLabel("Suchen");
 		lblSuchen.setBounds(165, 270, 46, 14);
 		getContentPane().add(lblSuchen);
-		
+
 		searchText = new JTextField();
 		searchText.setBounds(226, 267, 86, 20);
 		getContentPane().add(searchText);
 		searchText.setColumns(10);
 		DocumentListener mySearchListener = new MySearchListener(this);
-		searchText.getDocument().addDocumentListener(mySearchListener); 
+		searchText.getDocument().addDocumentListener(mySearchListener);
 	}
 
-	
 }
