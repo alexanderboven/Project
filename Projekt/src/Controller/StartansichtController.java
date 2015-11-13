@@ -41,6 +41,8 @@ public class StartansichtController {
 		
 		// SQL-Kommande zum Herausfinden der Rolle des angemeldeten Nutzers
 		
+		
+		
 		return "test";
 	}
 	
