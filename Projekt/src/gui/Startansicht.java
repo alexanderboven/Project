@@ -64,7 +64,7 @@ public class Startansicht extends JFrame {
 	public Startansicht(String nutzername, final Connection con) {
 		// Abfrage der Rolle des angemeldeten Nutzers
 		String rolle;
-		rolle = startansichtController.BestimmeRolle(nutzername);
+		rolle = startansichtController.BestimmeRolle(nutzername, con);
 		actionlistener = new MyActionListener(this, con);
 
 		setTitle("Pr\u00FCfungsverwaltung");

@@ -1,10 +1,12 @@
 package Controller;
 
+import java.sql.Connection;
 import java.util.Date;
 import java.util.TreeMap;
 
 import javax.swing.table.DefaultTableModel;
 
+import DB_Controller.DB_Startansicht_Controller;
 import model.Dozent;
 import model.Fachgruppe;
 import model.Modul;
@@ -20,6 +22,8 @@ public class StartansichtController {
 	private TreeMap<Integer, User> user;
 	private TreeMap<Integer, Studiengang> studgaenge;
 	
+	private DB_Startansicht_Controller dbStartansichtController;  
+	
 	private String[] columnHeaderUser = new String[] { "Benutzername", "Nachname", "Rolle", "aktiv" };
 	private String[] columnHeaderFachgurppe = new String[] { "Bezeichnung", "aktiv" };
 	private String[] columnHeaderModul = new String[] { "Modulbezeichnung", "Modulnr.", "aktiv" };
@@ -33,17 +37,22 @@ public class StartansichtController {
 	private User aktUser;
 	private Studiengang aktStudiengang;
 	
-	public StartansichtController(){
+	public StartansichtController(Connection con){
 		
+		dbStartansichtController= new DB_Startansicht_Controller(con);
 	}
 	
-	public String BestimmeRolle(String nutzername){
+	public String BestimmeRolle(String nutzername, Connection con){
+			
+		//Verbindung mit DB_Controller
+		String rolle=dbStartansichtController.getRolle(nutzername);
 		
-		// SQL-Kommande zum Herausfinden der Rolle des angemeldeten Nutzers
+		
+	
 		
 		
 		
-		return "test";
+		return rolle;
 	}
 	
 	public Pruefung getAktPruefung() {
