@@ -45,25 +45,29 @@ import javax.swing.JTextField;
 
 public class Startansicht extends JFrame {
 
-	ListSelectionModel listmodel;
-	Tabelle tabelle;
+	private ListSelectionModel listmodel;
+	private Tabelle tabelle;
 
-	TableRowSorter<DefaultTableModel> sorter;
-	StartansichtController startansichtController = new StartansichtController();
+	private TableRowSorter<DefaultTableModel> sorter;
+	private StartansichtController startansichtController;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
-	JButton btnBearbeiten;
-	JButton btnNeu;
-	MyActionListener actionlistener;
-	JMenuItem mntmModule;
-	JMenuItem mntmPrfungen;
-	JMenuItem mntmStudiengnge;
-	JMenuItem mntmFachgruppen;
-	JTextField searchText;
+	private JButton btnBearbeiten;
+	private JButton btnNeu;
+	private MyActionListener actionlistener;
+	private JMenuItem mntmModule;
+	private JMenuItem mntmPrfungen;
+	private JMenuItem mntmStudiengnge;
+	private JMenuItem mntmFachgruppen;
+	private JTextField searchText;
 
 	public Startansicht(String nutzername, final Connection con) {
 		// Abfrage der Rolle des angemeldeten Nutzers
 		String rolle;
+		String name;
+		startansichtController = new StartansichtController(con);
 		rolle = startansichtController.BestimmeRolle(nutzername, con);
+		name = startansichtController.bestimmeName(nutzername, con);
+		
 		actionlistener = new MyActionListener(this, con);
 
 		setTitle("Pr\u00FCfungsverwaltung");
@@ -74,7 +78,7 @@ public class Startansicht extends JFrame {
 		lblName.setBounds(31, 41, 46, 14);
 		getContentPane().add(lblName);
 
-		JLabel lblJlblname = new JLabel("lblName");
+		JLabel lblJlblname = new JLabel(name);
 		lblJlblname.setHorizontalAlignment(SwingConstants.LEFT);
 		lblJlblname.setBounds(109, 41, 46, 14);
 		getContentPane().add(lblJlblname);
@@ -84,7 +88,7 @@ public class Startansicht extends JFrame {
 		lblNewLabel.setBounds(31, 66, 46, 14);
 		getContentPane().add(lblNewLabel);
 
-		JLabel lblLblrolle = new JLabel("lblRolle");
+		JLabel lblLblrolle = new JLabel(rolle);
 		lblLblrolle.setHorizontalAlignment(SwingConstants.LEFT);
 		lblLblrolle.setBounds(109, 66, 46, 14);
 		getContentPane().add(lblLblrolle);
@@ -98,12 +102,13 @@ public class Startansicht extends JFrame {
 		lblBenutzer.setBounds(10, 16, 67, 14);
 		getContentPane().add(lblBenutzer);
 
-		JLabel lblLblbenutzer = new JLabel("lblBenutzer");
+		JLabel lblLblbenutzer = new JLabel(nutzername);
 		lblLblbenutzer.setHorizontalAlignment(SwingConstants.LEFT);
 		lblLblbenutzer.setBounds(109, 16, 77, 14);
 		getContentPane().add(lblLblbenutzer);
 
 		if (rolle == "Admin" || rolle == "Fachgruppenreferent") {
+			
 			btnBearbeiten = new JButton("Bearbeiten");
 			btnBearbeiten.setBounds(504, 266, 113, 23);
 			getContentPane().add(btnBearbeiten);
@@ -163,38 +168,35 @@ public class Startansicht extends JFrame {
 
 			JMenu mnBearbeiten = new JMenu("Bearbeiten");
 			menuBar.add(mnBearbeiten);
-		
 
 			if (rolle == "Admin") {
 
 				mntmModule = new JMenuItem("Module");
 				mntmModule.addActionListener(actionlistener);
 				mnBearbeiten.add(mntmModule);
-			
-			
-		JMenuItem mntmNutzer = new JMenuItem("Nutzer");
-		mntmNutzer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+
+				JMenuItem mntmNutzer = new JMenuItem("Nutzer");
+				mntmNutzer.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
+				mnBearbeiten.add(mntmNutzer);
+
+				mntmStudiengnge = new JMenuItem("Studieng\u00E4nge");
+				mnBearbeiten.add(mntmStudiengnge);
+
+				mntmFachgruppen = new JMenuItem("Fachgruppen");
+
+				mnBearbeiten.add(mntmFachgruppen);
+				mntmPrfungen = new JMenuItem("Pr\u00FCfungen");
+
 			}
-		});
-		mnBearbeiten.add(mntmNutzer);
 
-		mntmStudiengnge = new JMenuItem("Studieng\u00E4nge");
-		mnBearbeiten.add(mntmStudiengnge);
-
-		mntmFachgruppen = new JMenuItem("Fachgruppen");
-
-		mnBearbeiten.add(mntmFachgruppen);
-		mntmPrfungen = new JMenuItem("Pr\u00FCfungen");
-		
-			}
-
-		mnBearbeiten.add(mntmPrfungen);
-		JMenu mnber = new JMenu("\u00DCber");
-		menuBar.add(mnber);
+			mnBearbeiten.add(mntmPrfungen);
+			JMenu mnber = new JMenu("\u00DCber");
+			menuBar.add(mnber);
 
 		}
-		
 
 		ActionListener myActionListener = new MyActionListener(this, con);
 		ListSelectionListener myListSelectionListener = new MyListSelectionListener(
