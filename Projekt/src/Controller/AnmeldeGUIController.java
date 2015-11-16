@@ -7,6 +7,7 @@ public class AnmeldeGUIController {
 		
 	}
 	
+	//test
 	
 	public boolean passwortPruefen(String nutzer, char[] passwort){
 		
