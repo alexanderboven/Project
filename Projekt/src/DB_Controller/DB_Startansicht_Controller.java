@@ -13,7 +13,7 @@ public class DB_Startansicht_Controller {
 		String rolle="";
 		try {
 
-			String sql = "select rolle from Nutzer where nutzername = "
+			String sql = "select rolle from Nutzer where benutzername = "
 					+ nutzername;
 			
 			Statement stmt = con.createStatement();
@@ -39,7 +39,7 @@ public class DB_Startansicht_Controller {
 		String name = null;
 
 		try {
-			String sql = "select name from Nutzer where nutzername = "
+			String sql = "select nachname from Nutzer where benutzername = "
 					+ nutzername;
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
