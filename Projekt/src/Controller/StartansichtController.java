@@ -54,8 +54,7 @@ public class StartansichtController {
 		return name;
 	}
 
-	public String BestimmeRolle(String nutzername, Connection con) {
-
+	public String bestimmeRolle(String nutzername, Connection con) {
 		// Verbindung mit DB_Controller
 		String rolle = dbStartansichtController.getRolle(nutzername);
 
@@ -194,7 +193,13 @@ public class StartansichtController {
 			}
 		};
 		return dtm;
+		
+	}
 
+	public void aenderPrufestkonst(Studiengang[] studiengaenge,
+			Dozent erstpruefer, Dozent[] zweitpruefer, Pruefung[] pruefungen2) {
+		
+		
 	}
 
 }

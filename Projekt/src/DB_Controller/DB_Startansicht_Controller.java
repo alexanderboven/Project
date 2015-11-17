@@ -3,23 +3,27 @@ package DB_Controller;
 import java.sql.*;
 
 public class DB_Startansicht_Controller {
-	private Connection con;
+	public Connection con;
 
 	public DB_Startansicht_Controller(Connection con) {
 		this.con = con;
 	}
 
 	public String getRolle(String nutzername) {
-		String rolle = null;
+		String rolle="";
 		try {
 
-			String sql = "select rolle from User where nutzername = "
+			String sql = "select rolle from Nutzer where nutzername = "
 					+ nutzername;
+			
 			Statement stmt = con.createStatement();
 
 			ResultSet rs = stmt.executeQuery(sql);
-			rs.next();
-			rolle = rs.getString("rolle");
+			
+			while(rs.next()){
+				rolle = rs.getString("rolle");
+			}
+			
 
 			rs.close();
 			stmt.close();
@@ -35,12 +39,14 @@ public class DB_Startansicht_Controller {
 		String name = null;
 
 		try {
-			String sql = "select name from User where nutzername = "
+			String sql = "select name from Nutzer where nutzername = "
 					+ nutzername;
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
-			rs.next();
-			name = rs.getString("name");
+			while (rs.next()){
+				name = rs.getString("nachname");
+			}
+			
 			rs.close();
 			stmt.close();
 

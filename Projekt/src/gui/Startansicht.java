@@ -45,27 +45,27 @@ import javax.swing.JTextField;
 
 public class Startansicht extends JFrame {
 
-	private ListSelectionModel listmodel;
-	private Tabelle tabelle;
+	ListSelectionModel listmodel;
+	Tabelle tabelle;
 
-	private TableRowSorter<DefaultTableModel> sorter;
-	private StartansichtController startansichtController;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
-	private JButton btnBearbeiten;
-	private JButton btnNeu;
-	private MyActionListener actionlistener;
-	private JMenuItem mntmModule;
-	private JMenuItem mntmPrfungen;
-	private JMenuItem mntmStudiengnge;
-	private JMenuItem mntmFachgruppen;
-	private JTextField searchText;
+	TableRowSorter<DefaultTableModel> sorter;
+	StartansichtController startansichtController;
+	final ButtonGroup buttonGroup = new ButtonGroup();
+	JButton btnBearbeiten;
+	JButton btnNeu;
+	MyActionListener actionlistener;
+	JMenuItem mntmModule;
+	JMenuItem mntmPrfungen;
+	JMenuItem mntmStudiengnge;
+	JMenuItem mntmFachgruppen;
+	JTextField searchText;
 
 	public Startansicht(String nutzername, final Connection con) {
 		// Abfrage der Rolle des angemeldeten Nutzers
 		String rolle;
 		String name;
 		startansichtController = new StartansichtController(con);
-		rolle = startansichtController.BestimmeRolle(nutzername, con);
+		rolle = startansichtController.bestimmeRolle(nutzername, con);
 		name = startansichtController.bestimmeName(nutzername, con);
 		
 		actionlistener = new MyActionListener(this, con);
