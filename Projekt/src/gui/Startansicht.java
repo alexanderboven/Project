@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -49,16 +48,26 @@ public class Startansicht extends JFrame {
 	ListSelectionModel listmodel;
 	Tabelle tabelle;
 
-	TableRowSorter<DefaultTableModel> sorter;
+	TableRowSorter<MyTableModel> sorter;
 	StartansichtController startansichtController;
 	final ButtonGroup buttonGroup = new ButtonGroup();
+	
 	JButton btnBearbeiten;
 	JButton btnNeu;
 	MyActionListener actionlistener;
+	
 	JMenuItem mntmModule;
 	JMenuItem mntmPrfungen;
 	JMenuItem mntmStudiengnge;
 	JMenuItem mntmFachgruppen;
+	JMenuItem mntmNutzer;
+	JMenuItem mntmPrferkonstellationen;
+	
+	JMenuItem mntmPrfungsarten;
+	JMenuItem mntmRollen;
+	JMenuItem mntmPrfungszeitraum;
+	JMenuItem mntmNeuesSemesterEinrichten;
+	
 	JTextField searchText;
 
 	public Startansicht(String nutzername, final Connection con) {
@@ -111,7 +120,7 @@ public class Startansicht extends JFrame {
 		lblLblbenutzer.setBounds(109, 16, 77, 14);
 		getContentPane().add(lblLblbenutzer);
 
-		if (rolle == "Admin" || rolle == "Fachgruppenreferent") {
+		//if (rolle == "Admin" || rolle == "Fachgruppenreferent") {
 			
 			btnBearbeiten = new JButton("Bearbeiten");
 			btnBearbeiten.setBounds(504, 266, 113, 23);
@@ -134,7 +143,7 @@ public class Startansicht extends JFrame {
 			buttonGroup.add(rbtnFachgruppe);
 			rbtnFachgruppe.setBounds(185, 104, 161, 23);
 			getContentPane().add(rbtnFachgruppe);
-		}
+		//}
 		setBounds(100, 100, 677, 400);
 
 		JMenuBar menuBar = new JMenuBar();
@@ -151,7 +160,6 @@ public class Startansicht extends JFrame {
 						try {
 							String name = null;
 							String nutzername = null;
-							char[] passwort = null;
 							String rolle = null;
 							Selbstinformation frame = new Selbstinformation(
 									nutzername, con);
@@ -168,22 +176,19 @@ public class Startansicht extends JFrame {
 
 		mnEinstellungen.add(nutzerInformationen);
 
-		if (rolle == "Admin" || rolle == "Fachgruppenreferent") {
+		//if (rolle == "Admin" || rolle == "Fachgruppenreferent") {
 
 			JMenu mnBearbeiten = new JMenu("Bearbeiten");
 			menuBar.add(mnBearbeiten);
 
-			if (rolle == "Admin") {
+			//if (rolle == "Admin") {
 
 				mntmModule = new JMenuItem("Module");
 				mntmModule.addActionListener(actionlistener);
 				mnBearbeiten.add(mntmModule);
 
-				JMenuItem mntmNutzer = new JMenuItem("Nutzer");
-				mntmNutzer.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-					}
-				});
+				mntmNutzer = new JMenuItem("Nutzer");
+				mntmNutzer.addActionListener(actionlistener);
 				mnBearbeiten.add(mntmNutzer);
 
 				mntmStudiengnge = new JMenuItem("Studieng\u00E4nge");
@@ -199,52 +204,58 @@ public class Startansicht extends JFrame {
 				mntmPrfungen = new JMenuItem("Pr\u00FCfungen");
 				mnBearbeiten.add(mntmPrfungen);
 				
-				JMenuItem mntmSemester = new JMenuItem("Semester");
-				mnBearbeiten.add(mntmSemester);
-				
-				
-				
-				
-				
-
-				mntmStudiengnge = new JMenuItem("Studieng\u00E4nge");
-				mnBearbeiten.add(mntmStudiengnge);
-				
 
 					mnBearbeiten.add(mntmPrfungen);
-
-			}
-			
-			JMenu mnPrfungen = new JMenu("Pr\u00FCfungen");
-				mnBearbeiten.add(mnPrfungen);
 				
 				
-				
-				JMenuItem mntmPrferkonstellationen = new JMenuItem("Pr\u00FCferkonstellationen");
+					
+					
+				mntmPrferkonstellationen = new JMenuItem("Pr\u00FCferkonstellationen");
 				mnBearbeiten.add(mntmPrferkonstellationen);
+				
+				JMenu mnVerwalten = new JMenu("Verwalten");
+				menuBar.add(mnVerwalten);
+				
+				mntmPrfungsarten = new JMenuItem("Pr\u00FCfungsarten");
+				mnVerwalten.add(mntmPrfungsarten);
+				
+				mntmRollen = new JMenuItem("Rollen");
+				mnVerwalten.add(mntmRollen);
+				
+				mntmPrfungszeitraum = new JMenuItem("Pr\u00FCfungszeitraum");
+				mnVerwalten.add(mntmPrfungszeitraum);
+				
+				mntmNeuesSemesterEinrichten = new JMenuItem("neues Semester einrichten");
+				mnVerwalten.add(mntmNeuesSemesterEinrichten);
 
 		
 		
 
-		}
+		//}
 
 		ActionListener myActionListener = new MyActionListener(this, con);
 		ListSelectionListener myListSelectionListener = new MyListSelectionListener(
 				this);
 
-		DefaultTableModel dtm = startansichtController.aendereDtm("pruefung");
-		tabelle = new Tabelle("pruefung", dtm);
+		MyTableModel tm = startansichtController.aendereTm("pruefung");
+		tabelle = new Tabelle("pruefung", tm);
 		((JComponent) tabelle.getDefaultRenderer(Boolean.class)).setOpaque(true);
-		dtm.fireTableDataChanged();
+		tm.fireTableDataChanged();
+		tm.fireTableStructureChanged();
+		
 		validate();
-
+		
+		
+		
 		tabelle.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-		sorter = new TableRowSorter<DefaultTableModel>(dtm);
-		tabelle.setRowSorter(sorter);
+		
+		/* sorter = new TableRowSorter<MyTableModel>(tm);
+		 tabelle.setRowSorter(sorter);
+		
 		sorter.setComparator(2, new DateComparator());
 		sorter.setComparator(1, new IntegerComparator());
-
+		*/
+		
 		/*
 		 * Farbgestaltung der Tabelle wird durch Verwendung der Klasse
 		 * ColoredTableCellRenderer definiert. Jede zweite Zeile wird farblich
@@ -262,9 +273,13 @@ public class Startansicht extends JFrame {
 		listmodel = tabelle.getSelectionModel();
 		listmodel.addListSelectionListener(myListSelectionListener);
 
+		
 		JScrollPane sp = new JScrollPane(tabelle);
+		// JScrollPane sp = new JScrollPane(tabelle);
+		sp.add(tabelle);
 		sp.setBounds(31, 134, 586, 121);
 
+		
 		getContentPane().add(sp);
 
 		JLabel lblSuchen = new JLabel("Suchen");

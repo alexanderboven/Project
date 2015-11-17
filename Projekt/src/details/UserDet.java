@@ -26,7 +26,7 @@ public class UserDet extends JFrame{
 	private JTextField textName;
 	private JTable table;
 	
-	public UserDet(String name, final String nutzername, char[] passwort, String rolle, final Connection con) {
+	public UserDet(String name, final String nutzername, String rolle,boolean aktiv, final Connection con) {
 		setTitle("Nutzer Detailansicht");
 		getContentPane().setLayout(null);
 		setBounds(100, 100, 325, 226);
@@ -91,6 +91,7 @@ public class UserDet extends JFrame{
 		
 		JCheckBox chckbxAktiv = new JCheckBox("aktiv");
 		chckbxAktiv.setBounds(160, 100, 97, 23);
+		chckbxAktiv.setSelected(aktiv);
 		getContentPane().add(chckbxAktiv);
 		
 		JLabel lblAktivitt = new JLabel("Aktivit\u00E4t:");

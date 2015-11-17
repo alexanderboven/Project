@@ -10,9 +10,16 @@ import java.util.Date;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
+import model.Fachgruppe;
+import model.Modul;
 import model.Pruefung;
+import model.Studiengang;
+import model.User;
+import details.FachgruppeDet;
 import details.ModulDet;
 import details.PruefungDet;
+import details.StudiengangDet;
+import details.UserDet;
 
 public class MyActionListener implements ActionListener {
 
@@ -70,10 +77,64 @@ public class MyActionListener implements ActionListener {
 						e.printStackTrace();
 					}
 				case "modul":
-				case "user":
+					try {
+						Modul mod = gui.startansichtController
+								.getAktModul();
+
+						
+						//String modbez, int modnr, boolean aktiv, Connection con
+						ModulDet frame = new ModulDet(mod.getBezeichnung(), mod.getModNr(),
+								mod.getAktiv(), con);
+						frame.setVisible(true);
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				case "nutzer":
+					try {
+						User user = gui.startansichtController
+								.getAktUser();
+
+						
+						//String name, final String nutzername,  String rolle, final Connection con
+						UserDet frame = new UserDet(user.getNachname(),user.getBenutzername(), user.getRolle(),
+								user.getAktiv(), con);
+						frame.setVisible(true);
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					
 				case "fachgruppe":
+					try {
+						Fachgruppe fg = gui.startansichtController
+								.getAktFachgruppe();
+
+						
+						//(String bezeichnung, boolean aktiv, Connection con)
+						FachgruppeDet frame = new FachgruppeDet(fg.getName(),
+								fg.getAktiv(), con);
+						frame.setVisible(true);
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				case "studiengang":
+					try {
+						Studiengang stdg = gui.startansichtController
+								.getAktStudiengang();
+
+						
+						//(String bezeichnung, boolean aktiv, Connection con)
+						StudiengangDet frame = new StudiengangDet(stdg.getBezeichnung(),
+								stdg.getAktiv(), con);
+						frame.setVisible(true);
+
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				case "prueferkonstellation":
+				
 
 				}
 
@@ -121,11 +182,29 @@ public class MyActionListener implements ActionListener {
 		if (ae.getSource() == gui.mntmModule) {
 			System.out.println("actionevent Module");
 			
-			DefaultTableModel dtm = gui.startansichtController.aendereDtm("modul");
-			gui.tabelle.setModel(dtm);
+			MyTableModel tm = gui.startansichtController.aendereTm("modul");
+			gui.tabelle.setModel(tm);
 			gui.tabelle.setKlasse("modul");
 			
 		}
+		
 
+		if (ae.getSource() == gui.mntmNutzer) {
+			System.out.println("actionevent Nutzer");
+			
+			MyTableModel tm = gui.startansichtController.aendereTm("nutzer");
+			gui.tabelle.setModel(tm);
+			gui.tabelle.setKlasse("nutzer");
+			
+		}
+		
+		if (ae.getSource() == gui.mntmFachgruppen) {
+			System.out.println("actionevent Fachgruppe");
+			
+			MyTableModel tm = gui.startansichtController.aendereTm("fachgruppe");
+			gui.tabelle.setModel(tm);
+			gui.tabelle.setKlasse("fachgruppe");
+			
+		}
 	}
 }
