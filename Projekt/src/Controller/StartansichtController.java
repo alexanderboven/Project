@@ -1,9 +1,12 @@
 package Controller;
 
+import java.sql.Connection;
 import java.util.Date;
 import java.util.TreeMap;
 
 import javax.swing.table.DefaultTableModel;
+
+import DB_Controller.DB_Startansicht_Controller;
 import model.Fachgruppe;
 import model.Modul;
 import model.Pruefung;
@@ -30,18 +33,27 @@ public class StartansichtController {
 	private Fachgruppe aktFachgruppe;
 	private User aktUser;
 	private Studiengang aktStudiengang;
+	private DB_Startansicht_Controller dbStartansichtController;
 	
-	public StartansichtController(){
-		
+	
+
+	public StartansichtController(Connection con) {
+
+		dbStartansichtController = new DB_Startansicht_Controller(con);
 	}
-	
-	public String BestimmeRolle(String nutzername){
-		
-		// SQL-Kommande zum Herausfinden der Rolle des angemeldeten Nutzers
-		
-		return "test";
+
+	public String bestimmeName(String nutzername, Connection con) {
+		//Verbindung mit DB_Controller
+		return null;
 	}
-	
+
+	public String bestimmeRolle(String nutzername, Connection con) {
+		// Verbindung mit DB_Controller
+		String rolle = dbStartansichtController.getRolle(nutzername);
+
+		return rolle;
+	}
+
 	public Pruefung getAktPruefung() {
 		return aktPruefung;
 	}

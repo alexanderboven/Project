@@ -48,10 +48,10 @@ public class Startansicht extends JFrame {
 
 	ListSelectionModel listmodel;
 	Tabelle tabelle;
-	
+
 	TableRowSorter<DefaultTableModel> sorter;
-	StartansichtController startansichtController = new StartansichtController();
-	private final ButtonGroup buttonGroup = new ButtonGroup();
+	StartansichtController startansichtController;
+	final ButtonGroup buttonGroup = new ButtonGroup();
 	JButton btnBearbeiten;
 	JButton btnNeu;
 	MyActionListener actionlistener;
@@ -60,12 +60,17 @@ public class Startansicht extends JFrame {
 	JMenuItem mntmStudiengnge;
 	JMenuItem mntmFachgruppen;
 	JTextField searchText;
-	
 
 	public Startansicht(String nutzername, final Connection con) {
 		// Abfrage der Rolle des angemeldeten Nutzers
 		String rolle;
-		rolle = startansichtController.BestimmeRolle(nutzername);
+		String name;
+		rolle = startansichtController.bestimmeRolle(nutzername, con);
+		name = startansichtController.bestimmeName(nutzername, con);
+		
+		startansichtController = new StartansichtController(con);
+		
+		
 		actionlistener = new MyActionListener(this, con);
 
 		setTitle("Pr\u00FCfungsverwaltung");
@@ -76,7 +81,7 @@ public class Startansicht extends JFrame {
 		lblName.setBounds(31, 41, 46, 14);
 		getContentPane().add(lblName);
 
-		JLabel lblJlblname = new JLabel("lblName");
+		JLabel lblJlblname = new JLabel(name);
 		lblJlblname.setHorizontalAlignment(SwingConstants.LEFT);
 		lblJlblname.setBounds(109, 41, 46, 14);
 		getContentPane().add(lblJlblname);
@@ -86,7 +91,7 @@ public class Startansicht extends JFrame {
 		lblNewLabel.setBounds(31, 66, 46, 14);
 		getContentPane().add(lblNewLabel);
 
-		JLabel lblLblrolle = new JLabel("lblRolle");
+		JLabel lblLblrolle = new JLabel(rolle);
 		lblLblrolle.setHorizontalAlignment(SwingConstants.LEFT);
 		lblLblrolle.setBounds(109, 66, 46, 14);
 		getContentPane().add(lblLblrolle);
@@ -100,33 +105,35 @@ public class Startansicht extends JFrame {
 		lblBenutzer.setBounds(10, 16, 67, 14);
 		getContentPane().add(lblBenutzer);
 
-		JLabel lblLblbenutzer = new JLabel("lblBenutzer");
+		JLabel lblLblbenutzer = new JLabel(nutzername);
 		lblLblbenutzer.setHorizontalAlignment(SwingConstants.LEFT);
 		lblLblbenutzer.setBounds(109, 16, 77, 14);
 		getContentPane().add(lblLblbenutzer);
 
-		btnBearbeiten = new JButton("Bearbeiten");
-		btnBearbeiten.setBounds(504, 266, 113, 23);
-		getContentPane().add(btnBearbeiten);
-		btnBearbeiten.addActionListener(actionlistener);
+		if (rolle == "Admin" || rolle == "Fachgruppenreferent") {
+			
+			btnBearbeiten = new JButton("Bearbeiten");
+			btnBearbeiten.setBounds(504, 266, 113, 23);
+			getContentPane().add(btnBearbeiten);
+			btnBearbeiten.addActionListener(actionlistener);
 
-		btnNeu = new JButton("Neu");
-		btnNeu.addActionListener(actionlistener);
-		btnNeu.setBounds(405, 266, 89, 23);
-		getContentPane().add(btnNeu);
+			btnNeu = new JButton("Neu");
+			btnNeu.addActionListener(actionlistener);
+			btnNeu.setBounds(405, 266, 89, 23);
+			getContentPane().add(btnNeu);
 
-		JRadioButton rbtnEigene = new JRadioButton("eigene Pr\u00FCfungen");
-		rbtnEigene.setSelected(true);
-		buttonGroup.add(rbtnEigene);
-		rbtnEigene.setBounds(31, 104, 155, 23);
-		getContentPane().add(rbtnEigene);
+			JRadioButton rbtnEigene = new JRadioButton("eigene Pr\u00FCfungen");
+			rbtnEigene.setSelected(true);
+			buttonGroup.add(rbtnEigene);
+			rbtnEigene.setBounds(31, 104, 155, 23);
+			getContentPane().add(rbtnEigene);
 
-		JRadioButton rbtnFachgruppe = new JRadioButton(
-				"Pr\u00FCfungen Fachgruppe");
-		buttonGroup.add(rbtnFachgruppe);
-		rbtnFachgruppe.setBounds(185, 104, 161, 23);
-		getContentPane().add(rbtnFachgruppe);
-
+			JRadioButton rbtnFachgruppe = new JRadioButton(
+					"Pr\u00FCfungen Fachgruppe");
+			buttonGroup.add(rbtnFachgruppe);
+			rbtnFachgruppe.setBounds(185, 104, 161, 23);
+			getContentPane().add(rbtnFachgruppe);
+		}
 		setBounds(100, 100, 677, 400);
 
 		JMenuBar menuBar = new JMenuBar();
@@ -157,64 +164,79 @@ public class Startansicht extends JFrame {
 
 			}
 		});
+
 		mnEinstellungen.add(nutzerInformationen);
 
-		JMenu mnBearbeiten = new JMenu("Bearbeiten");
-		menuBar.add(mnBearbeiten);
-		mntmModule = new JMenuItem("Module");
-		mntmModule.addActionListener(actionlistener);
-		mnBearbeiten.add(mntmModule);
+		if (rolle == "Admin" || rolle == "Fachgruppenreferent") {
 
-		
-		JMenuItem mntmNutzer = new JMenuItem("Nutzer");
-		mntmNutzer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			JMenu mnBearbeiten = new JMenu("Bearbeiten");
+			menuBar.add(mnBearbeiten);
+
+			if (rolle == "Admin") {
+
+				mntmModule = new JMenuItem("Module");
+				mntmModule.addActionListener(actionlistener);
+				mnBearbeiten.add(mntmModule);
+
+				JMenuItem mntmNutzer = new JMenuItem("Nutzer");
+				mntmNutzer.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+					}
+				});
+				mnBearbeiten.add(mntmNutzer);
+
+				mntmStudiengnge = new JMenuItem("Studieng\u00E4nge");
+				mnBearbeiten.add(mntmStudiengnge);
+
+				mntmFachgruppen = new JMenuItem("Fachgruppen");
+
+				mnBearbeiten.add(mntmFachgruppen);
+				mntmPrfungen = new JMenuItem("Pr\u00FCfungen");
+				mnBearbeiten.add(mntmNutzer);	
+				
+				
+				mntmPrfungen = new JMenuItem("Pr\u00FCfungen");
+				mnBearbeiten.add(mntmPrfungen);
+				
+				JMenuItem mntmSemester = new JMenuItem("Semester");
+				mnBearbeiten.add(mntmSemester);
+				
+				
+				
+				
+				
+
+				mntmStudiengnge = new JMenuItem("Studieng\u00E4nge");
+				mnBearbeiten.add(mntmStudiengnge);
+				
+
+					mnBearbeiten.add(mntmPrfungen);
+
 			}
-		});
-		mnBearbeiten.add(mntmNutzer);	
-		
-		
-		mntmPrfungen = new JMenuItem("Pr\u00FCfungen");
-		mnBearbeiten.add(mntmPrfungen);
-		
-		JMenuItem mntmSemester = new JMenuItem("Semester");
-		mnBearbeiten.add(mntmSemester);
-		
-		JMenu mnPrfungen = new JMenu("Pr\u00FCfungen");
-		mnBearbeiten.add(mnPrfungen);
-		
-		JMenuItem mntmArt = new JMenuItem("Arten");
-		mnPrfungen.add(mntmArt);
-
-		mntmStudiengnge = new JMenuItem("Studieng\u00E4nge");
-		mnBearbeiten.add(mntmStudiengnge);
-		
-		JMenuItem mntmPrferkonstellationen = new JMenuItem("Pr\u00FCferkonstellationen");
-		mnBearbeiten.add(mntmPrferkonstellationen);
-
-		mntmFachgruppen = new JMenuItem("Fachgruppen");
-		mnBearbeiten.add(mntmFachgruppen);
-
-		JMenu mnber = new JMenu("\u00DCber");
-		menuBar.add(mnber);
-
-		JMenuItem mntmFeedback = new JMenuItem("Feedback");
-		mnber.add(mntmFeedback);
+			
+			JMenu mnPrfungen = new JMenu("Pr\u00FCfungen");
+				mnBearbeiten.add(mnPrfungen);
+				
+				
+				
+				JMenuItem mntmPrferkonstellationen = new JMenuItem("Pr\u00FCferkonstellationen");
+				mnBearbeiten.add(mntmPrferkonstellationen);
 
 		
 		
-		
-		
+
+		}
+
 		ActionListener myActionListener = new MyActionListener(this, con);
 		ListSelectionListener myListSelectionListener = new MyListSelectionListener(
 				this);
-		
+
 		DefaultTableModel dtm = startansichtController.aendereDtm("pruefung");
 		tabelle = new Tabelle("pruefung", dtm);
 		((JComponent) tabelle.getDefaultRenderer(Boolean.class)).setOpaque(true);
 		dtm.fireTableDataChanged();
 		validate();
-		
+
 		tabelle.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		sorter = new TableRowSorter<DefaultTableModel>(dtm);
@@ -243,16 +265,16 @@ public class Startansicht extends JFrame {
 		sp.setBounds(31, 134, 586, 121);
 
 		getContentPane().add(sp);
-		
+
 		JLabel lblSuchen = new JLabel("Suchen");
 		lblSuchen.setBounds(165, 270, 46, 14);
 		getContentPane().add(lblSuchen);
-		
+
 		searchText = new JTextField();
 		searchText.setBounds(226, 267, 86, 20);
 		getContentPane().add(searchText);
 		searchText.setColumns(10);
 		DocumentListener mySearchListener = new MySearchListener(this);
-		searchText.getDocument().addDocumentListener(mySearchListener); 
+		searchText.getDocument().addDocumentListener(mySearchListener);
 	}
 }
