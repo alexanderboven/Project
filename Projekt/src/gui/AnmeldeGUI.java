@@ -65,10 +65,15 @@ public class AnmeldeGUI extends JFrame {
 							
 							
 							if(anmeldeGUIController.passwortPruefen(nutzername, passwort) && anmeldeGUIController.nutzerAktiv(nutzername)){
+								if (con != null){
 								Startansicht frame = new Startansicht(nutzername, con);
 								frame.setVisible(true);
 								setVisible(false);
 								dispose();
+								
+								}else{
+									System.out.println("Fehler bei der Erstellung des Connection-Objektes");
+								}
 							}else{
 								JOptionPane.showMessageDialog(null, "Nutzername oder Passwort falsch.", "Log In Fehler", JOptionPane.ERROR_MESSAGE);
 							}

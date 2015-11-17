@@ -13,10 +13,10 @@ public class DB_Startansicht_Controller {
 		String rolle="";
 		try {
 
-			String sql = "select rolle from Nutzer where benutzername = "
-					+ nutzername;
+			String sql = "select rolle from Nutzer where benutzername = " + nutzername;
 			
-			Statement stmt = con.createStatement();
+			Statement stmt;
+			stmt = con.createStatement();
 
 			ResultSet rs = stmt.executeQuery(sql);
 			

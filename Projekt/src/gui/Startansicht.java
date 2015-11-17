@@ -65,10 +65,11 @@ public class Startansicht extends JFrame {
 		// Abfrage der Rolle des angemeldeten Nutzers
 		String rolle;
 		String name;
+		startansichtController = new StartansichtController(con);
 		rolle = startansichtController.bestimmeRolle(nutzername, con);
 		name = startansichtController.bestimmeName(nutzername, con);
 		
-		startansichtController = new StartansichtController(con);
+		
 		
 		
 		actionlistener = new MyActionListener(this, con);

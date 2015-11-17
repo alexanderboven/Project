@@ -55,12 +55,13 @@ public class AnmeldeGUIController {
 
 		if (connection != null) {
 			System.out.println("You made it, take control your database now!");
+			return connection;
 		} else {
 			System.out.println("Failed to make connection!");
 		}
 	
-		return null;
 		
+		return null;
 	}
 	
 }
