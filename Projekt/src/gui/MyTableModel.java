@@ -21,9 +21,13 @@ public class MyTableModel extends DefaultTableModel {
 	private static String[] columnHeaderStdg = new String[] { "Bezeichnung",
 			"aktiv" };
 
+	
+	
+	
 	public MyTableModel(String klasse, Object[][] data) {
 		super(data, getColumnHeader(klasse));
 		setColumnTypes(klasse);
+		this.klasse = klasse;
 
 	}
 

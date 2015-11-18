@@ -59,9 +59,9 @@ public class PrueferkonstellationDetSQLController {
 				i+=1;
 			}
 			rs.beforeFirst();
+			toreturn = new Object[i][4];
 			i = 0;
 			while (rs.next()){
-				toreturn = new Object[i][4];
 				toreturn[i][0] = rs.getString(1);
 				toreturn[i][1] = rs.getInt(2);
 				toreturn[i][2] = rs.getString(3);

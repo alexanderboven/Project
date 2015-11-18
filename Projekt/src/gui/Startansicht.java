@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.event.DocumentListener;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -48,7 +49,7 @@ public class Startansicht extends JFrame {
 	ListSelectionModel listmodel;
 	Tabelle tabelle;
 
-	TableRowSorter<MyTableModel> sorter;
+	TableRowSorter<DefaultTableModel> sorter;
 	StartansichtController startansichtController;
 	final ButtonGroup buttonGroup = new ButtonGroup();
 	
@@ -237,7 +238,7 @@ public class Startansicht extends JFrame {
 		ListSelectionListener myListSelectionListener = new MyListSelectionListener(
 				this);
 
-		MyTableModel tm = startansichtController.aendereTm("pruefung");
+		DefaultTableModel tm = startansichtController.aendereTm("pruefung");
 		tabelle = new Tabelle("pruefung", tm);
 		((JComponent) tabelle.getDefaultRenderer(Boolean.class)).setOpaque(true);
 		tm.fireTableDataChanged();

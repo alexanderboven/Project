@@ -9,7 +9,7 @@ public class Tabelle extends JTable{
 	private String klasse;
 	private MyTableModel tm;
 	
-	public Tabelle(String klasse, MyTableModel tm){
+	public Tabelle(String klasse, DefaultTableModel tm){
 		super(tm);
 		
 		setBounds(31, 134, 586, 121);

@@ -180,7 +180,7 @@ public class MyActionListener implements ActionListener {
 		}
 		
 		if (ae.getSource() == gui.mntmModule) {
-			System.out.println("actionevent Module");
+			System.out.println("actionevent module");
 			
 			MyTableModel tm = gui.startansichtController.aendereTm("modul");
 			gui.tabelle.setModel(tm);
@@ -190,7 +190,7 @@ public class MyActionListener implements ActionListener {
 		
 
 		if (ae.getSource() == gui.mntmNutzer) {
-			System.out.println("actionevent Nutzer");
+			System.out.println("actionevent nutzer");
 			
 			MyTableModel tm = gui.startansichtController.aendereTm("nutzer");
 			gui.tabelle.setModel(tm);
@@ -199,7 +199,7 @@ public class MyActionListener implements ActionListener {
 		}
 		
 		if (ae.getSource() == gui.mntmFachgruppen) {
-			System.out.println("actionevent Fachgruppe");
+			System.out.println("actionevent fachgruppe");
 			
 			MyTableModel tm = gui.startansichtController.aendereTm("fachgruppe");
 			gui.tabelle.setModel(tm);
