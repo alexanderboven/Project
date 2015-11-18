@@ -20,17 +20,21 @@ import java.sql.Connection;
 import javax.swing.JCheckBox;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
+import Controller.UserDetController;
 
 public class UserDet extends JFrame{
 	private JTextField textNutzername;
 	private JTextField textName;
 	private JTable table;
-	
+	private UserDetController controller;
 	public UserDet(String name, final String nutzername, String rolle,boolean aktiv, final Connection con) {
 		setTitle("Nutzer Detailansicht");
 		getContentPane().setLayout(null);
 		setBounds(100, 100, 325, 226);
 		
+		controller = new UserDetController(con);
 		JLabel lblName = new JLabel("Name:");
 		lblName.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblName.setBounds(-14, 29, 105, 14);
@@ -41,12 +45,12 @@ public class UserDet extends JFrame{
 		lblBenutzername.setBounds(10, 54, 81, 14);
 		getContentPane().add(lblBenutzername);
 		
-		textNutzername = new JTextField();
+		textNutzername = new JTextField(nutzername);
 		textNutzername.setBounds(160, 51, 120, 20);
 		getContentPane().add(textNutzername);
 		textNutzername.setColumns(10);
 		
-		textName = new JTextField();
+		textName = new JTextField(name);
 		textName.setBounds(160, 26, 120, 20);
 		getContentPane().add(textName);
 		textName.setColumns(10);
@@ -98,15 +102,22 @@ public class UserDet extends JFrame{
 		lblAktivitt.setBounds(45, 104, 46, 14);
 		getContentPane().add(lblAktivitt);
 		
+		
+		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(14, 133, 266, 20);
 		getContentPane().add(separator);
 		
+		String[]headder = controller.getHeadder();
+		Object[][]data = controller.getData(nutzername);
+		DefaultTableModel dtm = new DefaultTableModel(data, headder);
+		
 		JScrollPane sp = new JScrollPane();
-		table = new JTable();
+		table = new JTable(dtm);
 		sp.setBounds(10, 144, 270, 106);
 		sp.add(table);
 		getContentPane().add(sp);
+		
 		
 		JButton btnHinzufgen = new JButton("Hinzuf\u00FCgen");
 		btnHinzufgen.setBounds(20, 261, 89, 23);
