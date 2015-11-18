@@ -70,6 +70,8 @@ public class PrueferkonstellationDetSQLController {
 				
 				i+=1;
 			}
+			rs.close();
+			stmt.close();
 			
 		} catch (SQLException e) {
 			System.out.println("Fehler in getData");
