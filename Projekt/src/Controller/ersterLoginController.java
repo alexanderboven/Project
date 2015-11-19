@@ -6,18 +6,21 @@ import java.sql.Statement;
 
 public class ersterLoginController {
 	Connection con;
-	String nutzername;
-	public ersterLoginController(String nutzername, Connection con) {
+
+	public ersterLoginController(Connection con) {
 		this.con = con;
-		this.nutzername = nutzername;
+		
 	}
-	public void setRegistriert(String nutzername2) {
+	public void setRegistriert(String nutzername) {
 		try {	
-			String sql = "update nutzer set registriert = 'j' where benutzername = '"
-					+ nutzername + "'";
+			
+			String sql = "update nutzer set registriert = 'n' where benutzername = '" + nutzername + "'";
 			Statement stmt = con.createStatement();
-			stmt.executeUpdate(sql);
+			System.out.println("asd");
+			stmt.execute(sql);
+			System.out.println("am Anfang von setRegistriert2");
 			stmt.close();
+			System.out.println("am Anfang von setRegistriert3");
 			
 		} catch (SQLException e) {
 

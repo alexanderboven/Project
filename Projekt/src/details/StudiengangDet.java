@@ -6,6 +6,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -16,14 +17,17 @@ import javax.swing.JTextArea;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 
+import Controller.StudiengangDetController;
+
 public class StudiengangDet extends JFrame{
 	private JTextField txtBezeichnung;
 	private JTable table;
+	private StudiengangDetController controller;
 	
-	
-	public StudiengangDet(String bezeichnung, boolean aktiv, Connection con) {
+	public StudiengangDet(final String bezeichnung, boolean aktiv, Connection con) {
 		setTitle("Detailansicht Studiengang");
 		getContentPane().setLayout(null);
+		controller = new StudiengangDetController(con);
 		
 		txtBezeichnung = new JTextField();
 		txtBezeichnung.setBounds(121, 27, 120, 20);
@@ -61,6 +65,19 @@ public class StudiengangDet extends JFrame{
 		getContentPane().add(chckbxAktiv);
 		
 		JButton btnHinzufgen = new JButton("Hinzuf\u00FCgen");
+		btnHinzufgen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				ModulHinzufuegen frame = new ModulHinzufuegen(controller, bezeichnung);
+				frame.setVisible(true);
+				
+			}});
+		
+				
+				
+				
+				
+		
 		btnHinzufgen.setBounds(33, 204, 89, 23);
 		getContentPane().add(btnHinzufgen);
 		
@@ -72,9 +89,15 @@ public class StudiengangDet extends JFrame{
 		separator.setBounds(41, 83, 243, 8);
 		getContentPane().add(separator);
 		
-		JScrollPane sp = new JScrollPane();
-		table = new JTable();
-		sp.setBounds(33, 95, 258, 98);
+		
+		String[] header = controller.getHeader(); // Array mit den Überschriften der Tabelle
+		Object[][] data = controller.getData(bezeichnung); // 2D-Array mit den Daten der Module
+		
+		DefaultTableModel dtm = new DefaultTableModel(data, header);
+		JScrollPane sp = new JScrollPane(); //um in der Tabelle zu scrollen
+		// Tabelle mit den Moduldaten des Studiengangs
+		table = new JTable(dtm);
+		sp.setBounds(33, 95, 265, 98);
 		sp.add(table);
 		getContentPane().add(sp);
 		

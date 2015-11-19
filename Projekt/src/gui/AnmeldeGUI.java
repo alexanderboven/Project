@@ -43,7 +43,7 @@ public class AnmeldeGUI extends JFrame {
 		pfPasswort.setBounds(107, 58, 131, 20);
 		getContentPane().add(pfPasswort);
 
-		tfNutzer = new JTextField();
+		tfNutzer = new JTextField("sleonardo");
 		tfNutzer.setBounds(107, 23, 131, 20);
 		getContentPane().add(tfNutzer);
 		tfNutzer.setColumns(10);

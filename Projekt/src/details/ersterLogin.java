@@ -24,7 +24,7 @@ public class ersterLogin extends JFrame {
 	private ersterLoginController controller;
 
 	public ersterLogin(final String nutzername, final Connection con) {
-		controller = new ersterLoginController(nutzername, con);
+		controller = new ersterLoginController(con);
 		setTitle("erster Login");
 		getContentPane().setLayout(null);
 
@@ -61,9 +61,10 @@ public class ersterLogin extends JFrame {
 					
 					
 					controller.setRegistriert(nutzername);
+					System.out.println("im if");
 					controller.setPasswort(nutzername);
 					
-					System.out.println("im if");
+					
 					
 					Startansicht frame = new Startansicht(nutzername, con);
 					frame.setVisible(true);
