@@ -30,7 +30,22 @@ public class ModulHinzufuegen extends JFrame {
 		
 		String[] header = controller.getHeaderModHinzu();
 		Object[][] data = controller.getAllModule(bezeichnung);
-		DefaultTableModel dtm = new DefaultTableModel(data, header);
+		DefaultTableModel dtm = new DefaultTableModel(data, header){
+			
+				Class[] columnTypes = new Class[] {boolean.class,Object.class,Object.class};
+				public Class getColumnClass(int columnIndex) {
+					return columnTypes[columnIndex];
+				}
+
+				public boolean isCellEditable(int row, int column) {
+					if(column ==1 ){
+					return true;
+					}
+					return false;
+				}
+
+			};
+		
 		
 		table = new JTable(dtm);
 		scrollPane.setViewportView(table);

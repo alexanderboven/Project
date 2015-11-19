@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
+import java.awt.EventQueue;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.Connection;
@@ -17,6 +18,7 @@ import javax.swing.JTextArea;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 
+import Controller.AnmeldeGUIController;
 import Controller.StudiengangDetController;
 
 public class StudiengangDet extends JFrame{
@@ -93,7 +95,17 @@ public class StudiengangDet extends JFrame{
 		String[] header = controller.getHeader(); // Array mit den Überschriften der Tabelle
 		Object[][] data = controller.getData(bezeichnung); // 2D-Array mit den Daten der Module
 		
-		DefaultTableModel dtm = new DefaultTableModel(data, header);
+		DefaultTableModel dtm = new DefaultTableModel(data, header){
+			Class[] columnTypes = new Class[] {Object.class,Object.class};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+
+		};
 		JScrollPane sp = new JScrollPane(); //um in der Tabelle zu scrollen
 		// Tabelle mit den Moduldaten des Studiengangs
 		table = new JTable(dtm);
@@ -104,5 +116,19 @@ public class StudiengangDet extends JFrame{
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(33, 241, 258, 14);
 		getContentPane().add(separator_1);
+	}
+	
+	public static void main(String[] args){
+		final AnmeldeGUIController contr = new AnmeldeGUIController();
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					StudiengangDet frame = new StudiengangDet("WIF", true, contr.getConnection());
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 }
