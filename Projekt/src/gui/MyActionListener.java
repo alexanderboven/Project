@@ -185,7 +185,7 @@ public class MyActionListener implements ActionListener {
 			MyTableModel tm = gui.startansichtController.aendereTm("modul");
 			gui.tabelle.setModel(tm);
 			gui.tabelle.setKlasse("modul");
-			
+			aktTabelle();
 		}
 		
 
@@ -195,7 +195,7 @@ public class MyActionListener implements ActionListener {
 			MyTableModel tm = gui.startansichtController.aendereTm("nutzer");
 			gui.tabelle.setModel(tm);
 			gui.tabelle.setKlasse("nutzer");
-			
+			aktTabelle();
 		}
 		
 		if (ae.getSource() == gui.mntmFachgruppen) {
@@ -204,7 +204,14 @@ public class MyActionListener implements ActionListener {
 			MyTableModel tm = gui.startansichtController.aendereTm("fachgruppe");
 			gui.tabelle.setModel(tm);
 			gui.tabelle.setKlasse("fachgruppe");
-			
+			aktTabelle();
 		}
+	}
+	private void aktTabelle(){
+		gui.myListSelectionListener = new MyListSelectionListener(
+				gui);
+		gui.tabelle.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		gui.listmodel = gui.tabelle.getSelectionModel();
+		gui.listmodel.addListSelectionListener(gui.myListSelectionListener);
 	}
 }

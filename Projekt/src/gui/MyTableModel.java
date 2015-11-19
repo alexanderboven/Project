@@ -57,42 +57,59 @@ public class MyTableModel extends DefaultTableModel {
 
 	public void setColumnTypes(String klasse) {
 
-		switch (klasse) {
-		case "nutzer":
+		
+		if (klasse.equals("nutzer")){
 			columnTypes = new Class[] { Object.class, Object.class,
 					Object.class, Boolean.class };
-		case "fachgruppe":
-			columnTypes = new Class[] { Object.class, Boolean.class };
-		case "modul":
-			columnTypes = new Class[] { Object.class, Object.class,
+		}
+			
+		if(klasse.equals("fachgruppe")){
+				columnTypes = new Class[] { Object.class, Boolean.class };
+		}
+		
+		if(klasse.equals("modul")){
+				columnTypes = new Class[] { Object.class, Object.class,
 					Boolean.class };
-		case "prueferkonstellation":
-
-		case "pruefung":
+		}
+		
+		
+		if(klasse.equals("pruefung")){
 			columnTypes = new Class[] { Object.class, Object.class,
 					Object.class, Object.class, Object.class, Boolean.class };
-		case "studiengang":
+		}
+			
+		if(klasse.equals("studiengang")){
 			columnTypes = new Class[] { Object.class, Boolean.class };
 		}
+			
+		}
 
-	}
+	
 
 	private static String[] getColumnHeader(String klasse) {
-		switch (klasse) {
-		case "nutzer":
+
+		if (klasse.equals("nutzer")){
 			return columnHeaderUser;
-		case "fachgruppe":
-			return columnHeaderFachgurppe;
-		case "modul":
-			return columnHeaderModul;
-		case "prueferkonstellation":
-			return columnHeaderPrfkonst;
-		case "pruefung":
-			return columnHeaderPrfg;
-		case "studiengang":
-			return columnHeaderStdg;
-		default:
-			return null;
 		}
+			
+		if(klasse.equals("fachgruppe")){
+			return columnHeaderFachgurppe;
+		}
+		
+		if(klasse.equals("modul")){
+			return columnHeaderModul;	
+		}
+		
+		
+		if(klasse.equals("pruefung")){
+			return columnHeaderPrfg;
+		}
+			
+		if(klasse.equals("studiengang")){
+			return columnHeaderStdg;
+		}
+			
+			return null;
+		
 	}
 }

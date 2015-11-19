@@ -27,28 +27,29 @@ public class ersterLogin extends JFrame {
 		controller = new ersterLoginController(con);
 		setTitle("erster Login");
 		getContentPane().setLayout(null);
-
+		setBounds(100,100,480,186);
+		
 		JLabel lblNewLabel = new JLabel(
 				"Bitte geben Sie nach dem erstmaligen Einloggen ein neues Passwort ein.");
-		lblNewLabel.setBounds(24, 22, 356, 14);
+		lblNewLabel.setBounds(24, 22, 429, 14);
 		getContentPane().add(lblNewLabel);
 
 		JLabel lblPasswort = new JLabel("Passwort:");
 		lblPasswort.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblPasswort.setBounds(10, 64, 98, 14);
+		lblPasswort.setBounds(10, 47, 98, 14);
 		getContentPane().add(lblPasswort);
 
 		JLabel lblWiederholen = new JLabel("Wiederholen:");
 		lblWiederholen.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblWiederholen.setBounds(29, 89, 79, 14);
+		lblWiederholen.setBounds(29, 81, 79, 14);
 		getContentPane().add(lblWiederholen);
 
 		passwordField = new JPasswordField();
-		passwordField.setBounds(154, 61, 115, 20);
+		passwordField.setBounds(154, 47, 115, 20);
 		getContentPane().add(passwordField);
 
 		passwordField_1 = new JPasswordField();
-		passwordField_1.setBounds(154, 86, 115, 20);
+		passwordField_1.setBounds(154, 78, 115, 20);
 		getContentPane().add(passwordField_1);
 
 		JButton btnOk = new JButton("Ok");
@@ -65,18 +66,18 @@ public class ersterLogin extends JFrame {
 					controller.setPasswort(nutzername);
 					
 					
-					
+					JOptionPane.showMessageDialog(null, "Das Passwort wurde erfolgreich geändert.", "Passwort geändert", JOptionPane.PLAIN_MESSAGE);
 					Startansicht frame = new Startansicht(nutzername, con);
 					frame.setVisible(true);
 					dispose();
-					JOptionPane.showMessageDialog(null, "Das Passwort wurde geändert", "Passwort geändert", JOptionPane.OK_OPTION);
+					
 					
 				} else {
 					JOptionPane.showMessageDialog(null, "Passwörter nicht identisch.", "Passwörter nicht identisch", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
-		btnOk.setBounds(180, 117, 89, 23);
+		btnOk.setBounds(180, 109, 89, 23);
 		getContentPane().add(btnOk);
 	}
 }

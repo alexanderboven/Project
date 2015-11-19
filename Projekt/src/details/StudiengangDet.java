@@ -25,6 +25,7 @@ public class StudiengangDet extends JFrame{
 	private JTextField txtBezeichnung;
 	private JTable table;
 	private StudiengangDetController controller;
+	private JTextField textField;
 	
 	public StudiengangDet(final String bezeichnung, boolean aktiv, Connection con) {
 		setTitle("Detailansicht Studiengang");
@@ -32,7 +33,7 @@ public class StudiengangDet extends JFrame{
 		controller = new StudiengangDetController(con);
 		
 		txtBezeichnung = new JTextField();
-		txtBezeichnung.setBounds(121, 27, 120, 20);
+		txtBezeichnung.setBounds(117, 27, 120, 20);
 		getContentPane().add(txtBezeichnung);
 		txtBezeichnung.setColumns(10);
 		
@@ -41,7 +42,7 @@ public class StudiengangDet extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnSpeichern.setBounds(58, 255, 120, 23);
+		btnSpeichern.setBounds(54, 329, 120, 23);
 		getContentPane().add(btnSpeichern);
 		
 		JButton btnAbbrechen = new JButton("Abbrechen");
@@ -49,7 +50,7 @@ public class StudiengangDet extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnAbbrechen.setBounds(188, 255, 110, 23);
+		btnAbbrechen.setBounds(195, 329, 110, 23);
 		getContentPane().add(btnAbbrechen);
 		
 		JLabel lblBezeichnung = new JLabel("Bezeichnung:");
@@ -59,11 +60,11 @@ public class StudiengangDet extends JFrame{
 		
 		JLabel lblAktivitt = new JLabel("Aktivit\u00E4t:");
 		lblAktivitt.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblAktivitt.setBounds(33, 58, 63, 14);
+		lblAktivitt.setBounds(33, 92, 63, 14);
 		getContentPane().add(lblAktivitt);
 		
 		JCheckBox chckbxAktiv = new JCheckBox("aktiv");
-		chckbxAktiv.setBounds(117, 54, 97, 23);
+		chckbxAktiv.setBounds(117, 88, 97, 23);
 		getContentPane().add(chckbxAktiv);
 		
 		JButton btnHinzufgen = new JButton("Hinzuf\u00FCgen");
@@ -80,15 +81,15 @@ public class StudiengangDet extends JFrame{
 				
 				
 		
-		btnHinzufgen.setBounds(33, 204, 89, 23);
+		btnHinzufgen.setBounds(33, 281, 89, 23);
 		getContentPane().add(btnHinzufgen);
 		
 		JButton btnEntfernen = new JButton("Entfernen");
-		btnEntfernen.setBounds(125, 204, 89, 23);
+		btnEntfernen.setBounds(125, 281, 89, 23);
 		getContentPane().add(btnEntfernen);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(41, 83, 243, 8);
+		separator.setBounds(33, 117, 243, 8);
 		getContentPane().add(separator);
 		
 		
@@ -109,13 +110,23 @@ public class StudiengangDet extends JFrame{
 		JScrollPane sp = new JScrollPane(); //um in der Tabelle zu scrollen
 		// Tabelle mit den Moduldaten des Studiengangs
 		table = new JTable(dtm);
-		sp.setBounds(33, 95, 265, 98);
+		sp.setBounds(33, 136, 265, 134);
 		sp.add(table);
 		getContentPane().add(sp);
 		
 		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(33, 241, 258, 14);
+		separator_1.setBounds(33, 315, 258, 14);
 		getContentPane().add(separator_1);
+		
+		JLabel lblKrzel = new JLabel("K\u00FCrzel:");
+		lblKrzel.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblKrzel.setBounds(20, 55, 72, 14);
+		getContentPane().add(lblKrzel);
+		
+		textField = new JTextField();
+		textField.setBounds(117, 52, 120, 20);
+		getContentPane().add(textField);
+		textField.setColumns(10);
 	}
 	
 	public static void main(String[] args){

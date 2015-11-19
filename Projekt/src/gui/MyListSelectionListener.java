@@ -40,10 +40,10 @@ public class MyListSelectionListener implements ListSelectionListener {
 				String klasse = gui.tabelle.getKlasse();
 				aktiv = true;
 
-				switch (klasse) {
+				
 
-				case "pruefung":
-					// Auslesen der Werte in den Zellen
+				if (klasse.equals("pruefung")){
+				// Auslesen der Werte in den Zellen
 					int prfnr = Integer.parseInt((String) gui.tabelle
 							.getValueAt(gui.tabelle.getSelectedRow(), 0));
 					int dauer = Integer.parseInt((String) gui.tabelle
@@ -72,9 +72,11 @@ public class MyListSelectionListener implements ListSelectionListener {
 					// aktualisieren des Obejektes, welches die aktuell
 					// ausgewählte Prüfung darstellt
 					gui.startansichtController.aenderAktPruefung(prfnr, datum,
-							prfForm, dauer, raum, aktiv);
+							prfForm, dauer, raum, aktiv);	
+				}
+					
 
-				case "modul":
+				if(klasse.equals("modul")){
 					String modbez = gui.tabelle.getValueAt(
 							gui.tabelle.getSelectedRow(), 0).toString();
 					int modnr = Integer.parseInt((String) gui.tabelle
@@ -86,7 +88,10 @@ public class MyListSelectionListener implements ListSelectionListener {
 					gui.startansichtController.aenderAktModul(modbez, modnr,
 							aktiv);
 
-				case "fachgruppe":
+				}
+				
+				if(klasse.equals("fachgruppe")){
+					
 					String bezeichnung = gui.tabelle.getValueAt(
 							gui.tabelle.getSelectedRow(), 0).toString();
 					if (gui.tabelle.getValueAt(gui.tabelle.getSelectedRow(), 1)
@@ -96,7 +101,9 @@ public class MyListSelectionListener implements ListSelectionListener {
 					gui.startansichtController.aenderAktFachgruppe(bezeichnung,
 							aktiv);
 
-				case "studiengang":
+				}
+				if(klasse.equals("studiengang")){
+					
 					String bez = gui.tabelle.getValueAt(
 							gui.tabelle.getSelectedRow(), 0).toString();
 					;
@@ -106,7 +113,9 @@ public class MyListSelectionListener implements ListSelectionListener {
 					}
 					gui.startansichtController.aenderAktStudiengang(bez, aktiv);
 
-				case "prueferkonstellation":
+				}
+				if(klasse.equals( "prueferkonstellation")){
+					
 					Studiengang[] studiengaenge = null;
 
 					User erstpruefer = null;
@@ -121,8 +130,9 @@ public class MyListSelectionListener implements ListSelectionListener {
 				//	gui.startansichtController.aenderPrufestkonst(
 				//			studiengaenge, erstpruefer, zweitpruefer,
 				//			pruefungen);
-
-				case "user":
+				}
+				if(klasse.equals("user")){
+					
 					String benutzername = gui.tabelle.getValueAt(
 							gui.tabelle.getSelectedRow(), 0).toString();
 					char[] passwort = null;

@@ -49,6 +49,7 @@ public class Startansicht extends JFrame {
 	ListSelectionModel listmodel;
 	Tabelle tabelle;
 
+	ListSelectionListener myListSelectionListener;
 	TableRowSorter<DefaultTableModel> sorter;
 	StartansichtController startansichtController;
 	final ButtonGroup buttonGroup = new ButtonGroup();
@@ -235,8 +236,7 @@ public class Startansicht extends JFrame {
 		//}
 
 		ActionListener myActionListener = new MyActionListener(this, con);
-		ListSelectionListener myListSelectionListener = new MyListSelectionListener(
-				this);
+		
 
 		DefaultTableModel tm = startansichtController.aendereTm("pruefung");
 		tabelle = new Tabelle("pruefung", tm);
@@ -247,8 +247,13 @@ public class Startansicht extends JFrame {
 		validate();
 		
 		
-		
+		myListSelectionListener = new MyListSelectionListener(
+				this);
 		tabelle.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listmodel = tabelle.getSelectionModel();
+		listmodel.addListSelectionListener(myListSelectionListener);
+
+		
 		
 		/* sorter = new TableRowSorter<MyTableModel>(tm);
 		 tabelle.setRowSorter(sorter);
@@ -271,13 +276,11 @@ public class Startansicht extends JFrame {
 		 * initialisieren. Diese Variable wird anschlieﬂen beim Eventhandler
 		 * LisSelectionListener registriert.
 		 */
-		listmodel = tabelle.getSelectionModel();
-		listmodel.addListSelectionListener(myListSelectionListener);
-
 		
-		JScrollPane sp = new JScrollPane(tabelle);
+		
 		// JScrollPane sp = new JScrollPane(tabelle);
-		sp.add(tabelle);
+		JScrollPane sp = new JScrollPane(tabelle);
+		//sp.add(tabelle);
 		sp.setBounds(31, 134, 586, 121);
 
 		

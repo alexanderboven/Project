@@ -36,8 +36,8 @@ public class StartansichtController {
 	}
 
 	public String bestimmeName(String nutzername, Connection con) {
-		// Verbindung mit DB_Controller
-		return null;
+		String name = dbStartansichtController.getName(nutzername);
+		return name;
 	}
 
 	public String bestimmeRolle(String nutzername, Connection con) {
@@ -92,7 +92,7 @@ public class StartansichtController {
 	private Object[][] getData(String klasse) {
 
 		Object[][] datas = null;
-		if (klasse == "modul") {
+		if (klasse.equals("modul")) {
 			// Modulbezeichnung, Modulnr., aktiv
 
 			datas = new Object[2][3];
@@ -101,13 +101,12 @@ public class StartansichtController {
 			datas[0][1] = "1001";
 			datas[0][2] = true;
 
-			datas = new String[2][3];
 			datas[1][0] = "Produktion";
 			datas[1][1] = "1002";
 			datas[1][2] = false;
 		}
 		
-		if (klasse == "pruefung") {
+		if (klasse.equals("pruefung")) {
 			// prfnr, dauer, prfForm, datum, raum, aktiv
 
 			datas = new Object[4][6];

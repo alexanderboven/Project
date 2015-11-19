@@ -31,20 +31,20 @@ public class AnmeldeGUI extends JFrame {
 		setTitle("Log-In Pr\u00FCfungsverwaltung");
 		getContentPane().setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Benutzer");
-		lblNewLabel.setBounds(30, 26, 46, 14);
+		JLabel lblNewLabel = new JLabel("Benutzer:");
+		lblNewLabel.setBounds(30, 26, 105, 14);
 		getContentPane().add(lblNewLabel);
 
-		JLabel lblNewLabel_1 = new JLabel("Passwort");
-		lblNewLabel_1.setBounds(30, 61, 46, 14);
+		JLabel lblNewLabel_1 = new JLabel("Passwort:");
+		lblNewLabel_1.setBounds(30, 61, 105, 14);
 		getContentPane().add(lblNewLabel_1);
 
 		pfPasswort = new JPasswordField();
-		pfPasswort.setBounds(107, 58, 131, 20);
+		pfPasswort.setBounds(105, 58, 131, 20);
 		getContentPane().add(pfPasswort);
 
 		tfNutzer = new JTextField("sleonardo");
-		tfNutzer.setBounds(107, 23, 131, 20);
+		tfNutzer.setBounds(105, 23, 131, 20);
 		getContentPane().add(tfNutzer);
 		tfNutzer.setColumns(10);
 
@@ -109,19 +109,8 @@ public class AnmeldeGUI extends JFrame {
 				});
 			}
 		});
-		btnEinloggen.setBounds(179, 103, 90, 23);
+		btnEinloggen.setBounds(201, 103, 118, 23);
 		getContentPane().add(btnEinloggen);
-
-		JButton btnBeenden = new JButton("Beenden");
-		btnBeenden.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-
-				dispose();
-				System.exit(0);
-			}
-		});
-		btnBeenden.setBounds(279, 103, 89, 23);
-		getContentPane().add(btnBeenden);
 
 		JButton btnPasswortVergessen = new JButton("Passwort vergessen?");
 		btnPasswortVergessen.addActionListener(new ActionListener() {
@@ -134,13 +123,13 @@ public class AnmeldeGUI extends JFrame {
 						"Passwort vergessen?", JOptionPane.OK_CANCEL_OPTION);
 			}
 		});
-		btnPasswortVergessen.setBounds(29, 103, 140, 23);
+		btnPasswortVergessen.setBounds(20, 103, 171, 23);
 		getContentPane().add(btnPasswortVergessen);
 
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 86, 352, 2);
+		separator.setBounds(10, 86, 309, 2);
 		getContentPane().add(separator);
-		setBounds(100, 100, 400, 183);
+		setBounds(100, 100, 385, 183);
 
 	}
 

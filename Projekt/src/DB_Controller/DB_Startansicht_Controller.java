@@ -10,10 +10,10 @@ public class DB_Startansicht_Controller {
 	}
 
 	public String getRolle(String nutzername) {
-		String rolle="";
+		String rolle=null;
 		try {
 
-			String sql = "select rolle from Nutzer where benutzername = " + nutzername;
+			String sql = "select rolle from Nutzer where benutzername = '" + nutzername+"'";
 			
 			Statement stmt;
 			stmt = con.createStatement();
@@ -39,8 +39,8 @@ public class DB_Startansicht_Controller {
 		String name = null;
 
 		try {
-			String sql = "select nachname from Nutzer where benutzername = "
-					+ nutzername;
+			String sql = "select nachname from Nutzer where benutzername = '"
+					+ nutzername+"'";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()){

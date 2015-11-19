@@ -93,8 +93,9 @@ public class AnmeldeGUISQLController {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			while (rs.next()){
-				if(rs.getString(1) == "j")
+				if(rs.getString(1).equals("j")){
 					registriert = true;
+				}
 			}
 			rs.close();
 			stmt.close();
