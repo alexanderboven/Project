@@ -12,15 +12,15 @@ public class ersterLoginController {
 		
 	}
 	public void setRegistriert(String nutzername) {
+		String sql = "";
 		try {	
 			
-			String sql = "update nutzer set registriert = 'n' where benutzername = '" + nutzername + "'";
+			sql = "update nutzer set registriert = 'j' where benutzername = '" + nutzername + "'";
 			Statement stmt = con.createStatement();
-			System.out.println("asd");
-			stmt.execute(sql);
-			System.out.println("am Anfang von setRegistriert2");
+			System.out.println("vor dem Ausführen der SQL-Abfrage");
+			int i = stmt.executeUpdate(sql);
+			System.out.println("Status der setRegistriert-Abfrage: " + i);
 			stmt.close();
-			System.out.println("am Anfang von setRegistriert3");
 			
 		} catch (SQLException e) {
 

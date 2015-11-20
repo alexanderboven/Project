@@ -34,19 +34,18 @@ public class MyActionListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		/*
-		 * Die Textfelder showName und showNachname können editiert werden. Wenn
-		 * Änderungen dauerhaft gespeichert werden sollen, dann kann dies durch
-		 * den Klick des Buttons aendern durchgeführt werden. Die Änderungen
-		 * werden zum einen in der tabellarischen Anzeige angepasst und zum
-		 * anderen beim jeweiligen Objekt in der TreeMap durchgeführt.
-		 * Änderungen werden allerdings erst dann durchgeführt, wenn die
-		 * Eingaben mindestens ein Zeichen lang sind
+		
+		
+		
+		/*	Aus der gui.tabelle.getKlass() wird ausgelesen welcher Klasse die aktuell in der Tabelle anzeigten Daten angehören. 
+		 * 
 		 */
+		
 		String klasse = gui.tabelle.getKlasse();
 		
 		
 		if (ae.getSource() == gui.btnBearbeiten) {
+			
 			
 			/*
 			 * Sicherstellen, dass Änderungsanweisungen nur dann durchgeführt
@@ -55,13 +54,12 @@ public class MyActionListener implements ActionListener {
 			
 			if (gui.tabelle.getSelectedRow() >= 0) {
 				
-				/*
-				 * Änderungen werden erst dann durchgeführt, wenn die jeweilige
-				 * Eingabelänge mindestens den Wert 1 hat.
+				/*	Fallunterscheidungen je nach Klasse der Tabelle.
+				 * 
 				 */
-				switch (klasse) {
+				
 
-				case "pruefung":
+				if (klasse.equals("pruefung")){
 					
 					try {
 						Pruefung prfg = gui.startansichtController
@@ -76,7 +74,8 @@ public class MyActionListener implements ActionListener {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-				case "modul":
+				}
+				if (klasse.equals("modul")){
 					try {
 						Modul mod = gui.startansichtController
 								.getAktModul();
@@ -90,7 +89,8 @@ public class MyActionListener implements ActionListener {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-				case "nutzer":
+				}
+				if (klasse.equals("nutzer")){
 					try {
 						User user = gui.startansichtController
 								.getAktUser();
@@ -105,13 +105,14 @@ public class MyActionListener implements ActionListener {
 						e.printStackTrace();
 					}
 					
-				case "fachgruppe":
+				}
+				if (klasse.equals("fachgruppe")){
 					try {
 						Fachgruppe fg = gui.startansichtController
 								.getAktFachgruppe();
 
 						
-						//(String bezeichnung, boolean aktiv, Connection con)
+						//String bezeichnung, boolean aktiv, Connection con
 						FachgruppeDet frame = new FachgruppeDet(fg.getName(),
 								fg.getAktiv(), con);
 						frame.setVisible(true);
@@ -119,7 +120,8 @@ public class MyActionListener implements ActionListener {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-				case "studiengang":
+				}
+				if(klasse.equals("studiengang")){
 					try {
 						Studiengang stdg = gui.startansichtController
 								.getAktStudiengang();
@@ -133,25 +135,24 @@ public class MyActionListener implements ActionListener {
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
-				case "prueferkonstellation":
+				}
 				
 
-				}
+				
 
 			}
 		}
-		/*
-		 * Wenn markierte Zeile und das dazugehörige Objekt gelöscht werden
-		 * soll, kann diesesmit einem Klick auf den Buttom loeschen durchgeführt
-		 * werden. Es werden die Anzeige aus dertabellarischen Darstellung und
-		 * das entsprechende Objekt aus der TreeMap entfernt.
-		 */
+		
+		
+		
+		
 		if (ae.getSource() == gui.btnNeu) {
-			/*
-			 * Sicherstellen, dass Löschanweisungen nur dann durchgeführt werden
-			 * können, wenn eine Zeile markiert wurde
-			 */
-			if (klasse == "pruefung"){
+			
+			/*	Unterscheidung, 
+			
+			
+			*/
+			if (klasse.equals("pruefung")){
 			
 				try {
 					PruefungDet frame = new PruefungDet(0, new Date(
@@ -161,7 +162,8 @@ public class MyActionListener implements ActionListener {
 					e.printStackTrace();
 				}
 			}
-			if (klasse == "modul"){
+			
+			if (klasse.equals("modul")){
 				try {
 					ModulDet frame = new ModulDet("", 0, true, con);
 					frame.setVisible(true);
@@ -169,18 +171,36 @@ public class MyActionListener implements ActionListener {
 					e.printStackTrace();
 				}
 			}
-			/*case "user":
-			case "fachgruppe":
-			case "studiengang":
-			case "prueferkonstellation":
-			
-
+			if (klasse.equals("user")){
+				try {
+					UserDet frame = new UserDet("", "", "", true, con);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
-			*/
+			
+			if (klasse.equals("fachgruppe")){
+				try {
+					FachgruppeDet frame = new FachgruppeDet("",  true, con);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			if (klasse.equals("studiengang")){
+				try {
+					StudiengangDet frame = new StudiengangDet("", true, con);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
 		}
 		
 		if (ae.getSource() == gui.mntmModule) {
-			System.out.println("actionevent module");
 			
 			MyTableModel tm = gui.startansichtController.aendereTm("modul");
 			gui.tabelle.setModel(tm);
@@ -190,7 +210,6 @@ public class MyActionListener implements ActionListener {
 		
 
 		if (ae.getSource() == gui.mntmNutzer) {
-			System.out.println("actionevent nutzer");
 			
 			MyTableModel tm = gui.startansichtController.aendereTm("nutzer");
 			gui.tabelle.setModel(tm);
@@ -199,13 +218,21 @@ public class MyActionListener implements ActionListener {
 		}
 		
 		if (ae.getSource() == gui.mntmFachgruppen) {
-			System.out.println("actionevent fachgruppe");
 			
 			MyTableModel tm = gui.startansichtController.aendereTm("fachgruppe");
 			gui.tabelle.setModel(tm);
 			gui.tabelle.setKlasse("fachgruppe");
 			aktTabelle();
 		}
+		if (ae.getSource() == gui.mntmPrfungen) {
+			
+			MyTableModel tm = gui.startansichtController.aendereTm("pruefung");
+			gui.tabelle.setModel(tm);
+			gui.tabelle.setKlasse("pruefung");
+			aktTabelle();
+		}
+		
+		
 	}
 	private void aktTabelle(){
 		gui.myListSelectionListener = new MyListSelectionListener(

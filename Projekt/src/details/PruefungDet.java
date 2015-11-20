@@ -19,6 +19,7 @@ public class PruefungDet extends JFrame{
 	private JTextField txtRaum;
 	private JTextField txtDauer;
 	private JTextField txtModul;
+	private JTextField txtBez;
 	
 	
 	public PruefungDet(int prfnr, Date datum, String prfForm, int dauer, String raum, boolean aktiv, Connection con) {
@@ -32,63 +33,63 @@ public class PruefungDet extends JFrame{
 		
 		JLabel lblDatum = new JLabel("Datum:");
 		lblDatum.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblDatum.setBounds(10, 44, 63, 14);
+		lblDatum.setBounds(10, 271, 63, 14);
 		getContentPane().add(lblDatum);
 		
 		JLabel lblRaum = new JLabel("Raum:");
 		lblRaum.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblRaum.setBounds(10, 116, 63, 14);
+		lblRaum.setBounds(10, 184, 63, 14);
 		getContentPane().add(lblRaum);
 		
 		JLabel lblForm = new JLabel("Form:");
 		lblForm.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblForm.setBounds(7, 94, 66, 14);
+		lblForm.setBounds(7, 159, 66, 14);
 		getContentPane().add(lblForm);
 		
 		JLabel lblDauer = new JLabel("Dauer:");
 		lblDauer.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblDauer.setBounds(10, 69, 58, 14);
+		lblDauer.setBounds(15, 116, 58, 14);
 		getContentPane().add(lblDauer);
 		
 		JLabel lblModul = new JLabel("Modul:");
 		lblModul.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblModul.setBounds(10, 141, 63, 14);
+		lblModul.setBounds(10, 78, 63, 14);
 		getContentPane().add(lblModul);
 		
 		txtPrfnr = new JTextField();
-		txtPrfnr.setText("" + prfnr);
-		txtPrfnr.setBounds(83, 19, 120, 20);
+		txtPrfnr.setText("prfid");
+		txtPrfnr.setBounds(124, 19, 120, 20);
 		getContentPane().add(txtPrfnr);
 		txtPrfnr.setColumns(10);
 		
 		txtRaum = new JTextField();
 		txtRaum.setText("" + raum);
-		txtRaum.setBounds(83, 113, 120, 20);
+		txtRaum.setBounds(83, 181, 120, 20);
 		getContentPane().add(txtRaum);
 		txtRaum.setColumns(10);
 		
 		JLabel lbldatetimepicker = new JLabel("//DateTimePicker");
-		lbldatetimepicker.setBounds(93, 44, 99, 14);
+		lbldatetimepicker.setBounds(83, 271, 99, 14);
 		getContentPane().add(lbldatetimepicker);
 		
 		JComboBox cbForm = new JComboBox();
-		cbForm.setBounds(83, 91, 120, 20);
+		cbForm.setBounds(124, 141, 120, 20);
 		getContentPane().add(cbForm);
 		
 		txtDauer = new JTextField();
 		txtDauer.setText("" + dauer);
-		txtDauer.setBounds(83, 66, 120, 20);
+		txtDauer.setBounds(124, 110, 120, 20);
 		getContentPane().add(txtDauer);
 		txtDauer.setColumns(10);
 		
 		txtModul = new JTextField();
 		txtModul.setText("modul");
-		txtModul.setBounds(83, 138, 120, 20);
+		txtModul.setBounds(124, 75, 120, 20);
 		getContentPane().add(txtModul);
 		txtModul.setColumns(10);
 		
 		JLabel lblNurFr = new JLabel("// read-only");
-		lblNurFr.setBounds(239, 141, 128, 14);
+		lblNurFr.setBounds(270, 209, 128, 14);
 		getContentPane().add(lblNurFr);
 		
 		JButton btnSpeichern = new JButton("Speichern");
@@ -96,25 +97,35 @@ public class PruefungDet extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnSpeichern.setBounds(39, 192, 120, 23);
+		btnSpeichern.setBounds(10, 485, 120, 23);
 		getContentPane().add(btnSpeichern);
 		
 		JButton btnAbbrechen = new JButton("Abbrechen");
-		btnAbbrechen.setBounds(175, 192, 110, 23);
+		btnAbbrechen.setBounds(157, 485, 110, 23);
 		getContentPane().add(btnAbbrechen);
 		
-		JLabel lblAktiv = new JLabel("Aktivit\u00E4t:");
-		lblAktiv.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblAktiv.setBounds(10, 167, 63, 14);
-		getContentPane().add(lblAktiv);
+		JLabel lblNurFr_1 = new JLabel("// nur f\u00FCr den Admin");
+		lblNurFr_1.setBounds(270, 184, 144, 14);
+		getContentPane().add(lblNurFr_1);
+		
+		txtBez = new JTextField();
+		txtBez.setText("bez");
+		txtBez.setBounds(124, 44, 120, 20);
+		getContentPane().add(txtBez);
+		txtBez.setColumns(10);
+		
+		JLabel lblBezeichnung = new JLabel("Bezeichnung:");
+		lblBezeichnung.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblBezeichnung.setBounds(-21, 47, 94, 14);
+		getContentPane().add(lblBezeichnung);
+		
+		JLabel lblStatus = new JLabel("Status:");
+		lblStatus.setBounds(33, 313, 46, 14);
+		getContentPane().add(lblStatus);
 		
 		JCheckBox chckbxAktiv = new JCheckBox("aktiv");
-		chckbxAktiv.setBounds(83, 162, 97, 23);
+		chckbxAktiv.setBounds(106, 309, 97, 23);
 		getContentPane().add(chckbxAktiv);
-		
-		JLabel lblNurFr_1 = new JLabel("// nur f\u00FCr den Admin");
-		lblNurFr_1.setBounds(237, 116, 144, 14);
-		getContentPane().add(lblNurFr_1);
 		if (aktiv){
 			System.out.println(aktiv + "");
 			chckbxAktiv.setSelected(true);
@@ -122,7 +133,7 @@ public class PruefungDet extends JFrame{
 			System.out.println(aktiv + "");
 			chckbxAktiv.setSelected(false);
 		}
-		setBounds(100, 100, 430, 338);
+		setBounds(100, 100, 583, 557);
 		
 		
 		

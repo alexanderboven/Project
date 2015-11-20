@@ -61,15 +61,18 @@ public class ersterLogin extends JFrame {
 					
 					
 					
-					controller.setRegistriert(nutzername);
-					System.out.println("im if");
-					controller.setPasswort(nutzername);
-					
-					
-					JOptionPane.showMessageDialog(null, "Das Passwort wurde erfolgreich geändert.", "Passwort geändert", JOptionPane.PLAIN_MESSAGE);
-					Startansicht frame = new Startansicht(nutzername, con);
-					frame.setVisible(true);
-					dispose();
+					if (pw1.length > 5) {
+						controller.setRegistriert(nutzername);
+						controller.setPasswort(nutzername);
+						JOptionPane.showMessageDialog(null,
+								"Das Passwort wurde erfolgreich geändert.",
+								"Passwort geändert", JOptionPane.PLAIN_MESSAGE);
+						Startansicht frame = new Startansicht(nutzername, con);
+						frame.setVisible(true);
+						dispose();
+					} else {
+						JOptionPane.showMessageDialog(null, "Ihr Passwort muss länger als 5 Zeichen sein.", "Passwort zu kurz", JOptionPane.ERROR_MESSAGE);
+					}
 					
 					
 				} else {

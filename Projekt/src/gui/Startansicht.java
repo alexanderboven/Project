@@ -24,6 +24,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.WindowListener;
 import java.sql.Connection;
+import java.util.Date;
 import java.util.TreeMap;
 
 import javax.swing.JMenuBar;
@@ -90,26 +91,26 @@ public class Startansicht extends JFrame {
 
 		JLabel lblName = new JLabel("Name:");
 		lblName.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblName.setBounds(31, 41, 46, 14);
+		lblName.setBounds(10, 41, 67, 14);
 		getContentPane().add(lblName);
 
 		JLabel lblJlblname = new JLabel(name);
 		lblJlblname.setHorizontalAlignment(SwingConstants.LEFT);
-		lblJlblname.setBounds(109, 41, 46, 14);
+		lblJlblname.setBounds(109, 41, 113, 14);
 		getContentPane().add(lblJlblname);
 
 		JLabel lblNewLabel = new JLabel("Rolle:");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel.setBounds(31, 66, 46, 14);
+		lblNewLabel.setBounds(10, 66, 67, 14);
 		getContentPane().add(lblNewLabel);
 
 		JLabel lblLblrolle = new JLabel(rolle);
 		lblLblrolle.setHorizontalAlignment(SwingConstants.LEFT);
-		lblLblrolle.setBounds(109, 66, 46, 14);
+		lblLblrolle.setBounds(109, 66, 128, 14);
 		getContentPane().add(lblLblrolle);
 
 		JSeparator separator = new JSeparator();
-		separator.setBounds(31, 91, 586, 2);
+		separator.setBounds(31, 91, 257, 2);
 		getContentPane().add(separator);
 
 		JLabel lblBenutzer = new JLabel("Benutzer:");
@@ -119,34 +120,34 @@ public class Startansicht extends JFrame {
 
 		JLabel lblLblbenutzer = new JLabel(nutzername);
 		lblLblbenutzer.setHorizontalAlignment(SwingConstants.LEFT);
-		lblLblbenutzer.setBounds(109, 16, 77, 14);
+		lblLblbenutzer.setBounds(109, 16, 169, 14);
 		getContentPane().add(lblLblbenutzer);
 
 		//if (rolle == "Admin" || rolle == "Fachgruppenreferent") {
 			
 			btnBearbeiten = new JButton("Bearbeiten");
-			btnBearbeiten.setBounds(504, 266, 113, 23);
+			btnBearbeiten.setBounds(657, 289, 113, 23);
 			getContentPane().add(btnBearbeiten);
 			btnBearbeiten.addActionListener(actionlistener);
 
 			btnNeu = new JButton("Neu");
 			btnNeu.addActionListener(actionlistener);
-			btnNeu.setBounds(405, 266, 89, 23);
+			btnNeu.setBounds(556, 289, 89, 23);
 			getContentPane().add(btnNeu);
 
 			JRadioButton rbtnEigene = new JRadioButton("eigene Pr\u00FCfungen");
 			rbtnEigene.setSelected(true);
 			buttonGroup.add(rbtnEigene);
-			rbtnEigene.setBounds(31, 104, 155, 23);
+			rbtnEigene.setBounds(31, 127, 128, 23);
 			getContentPane().add(rbtnEigene);
 
 			JRadioButton rbtnFachgruppe = new JRadioButton(
 					"Pr\u00FCfungen Fachgruppe");
 			buttonGroup.add(rbtnFachgruppe);
-			rbtnFachgruppe.setBounds(185, 104, 161, 23);
+			rbtnFachgruppe.setBounds(161, 127, 161, 23);
 			getContentPane().add(rbtnFachgruppe);
 		//}
-		setBounds(100, 100, 677, 400);
+		setBounds(100, 100, 796, 400);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -229,6 +230,12 @@ public class Startansicht extends JFrame {
 				
 				mntmNeuesSemesterEinrichten = new JMenuItem("neues Semester einrichten");
 				mnVerwalten.add(mntmNeuesSemesterEinrichten);
+				
+				JMenu mnExport = new JMenu("Export");
+				menuBar.add(mnExport);
+				
+				JMenuItem mntmExportieren = new JMenuItem("Exportieren");
+				mnExport.add(mntmExportieren);
 
 		
 		
@@ -278,22 +285,31 @@ public class Startansicht extends JFrame {
 		 */
 		
 		
-		// JScrollPane sp = new JScrollPane(tabelle);
 		JScrollPane sp = new JScrollPane(tabelle);
-		//sp.add(tabelle);
-		sp.setBounds(31, 134, 586, 121);
-
+		sp.setBounds(31, 157, 739, 121);
+		
+		
+		Date frist = startansichtController.getFrist("SoSe161");
+		Date serverdatum = startansichtController.getServerDatum();
+		System.out.println("Server: " + serverdatum);
+		System.out.println("Frist: " + frist);
 		
 		getContentPane().add(sp);
 
-		JLabel lblSuchen = new JLabel("Suchen");
-		lblSuchen.setBounds(165, 270, 46, 14);
+		JLabel lblSuchen = new JLabel("Suchen:");
+		lblSuchen.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSuchen.setBounds(0, 104, 77, 16);
 		getContentPane().add(lblSuchen);
 
 		searchText = new JTextField();
-		searchText.setBounds(226, 267, 86, 20);
+		searchText.setBounds(100, 100, 86, 20);
 		getContentPane().add(searchText);
 		searchText.setColumns(10);
+		
+		JRadioButton rdbtnAllePrfungen = new JRadioButton("alle Pr\u00FCfungen");
+		buttonGroup.add(rdbtnAllePrfungen);
+		rdbtnAllePrfungen.setBounds(324, 127, 109, 23);
+		getContentPane().add(rdbtnAllePrfungen);
 		DocumentListener mySearchListener = new MySearchListener(this);
 		searchText.getDocument().addDocumentListener(mySearchListener);
 	}

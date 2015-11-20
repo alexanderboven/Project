@@ -12,7 +12,7 @@ public class Tabelle extends JTable{
 	public Tabelle(String klasse, DefaultTableModel tm){
 		super(tm);
 		
-		setBounds(31, 134, 586, 121);
+		setBounds(31, 157, 739, 121);
 		this.klasse = klasse;
 		setDefaultRenderer(Object.class,new MyTableCellRenderer());
 		getTableHeader().setFont(new Font("Tahoma", Font.BOLD, 12));
