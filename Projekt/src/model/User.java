@@ -1,16 +1,17 @@
 package model;
 
 public class User {
-	private char[] passwort;
+	private String benutzername;
 	private String nachname;
 	private String rolle;
-	private String benutzername;
+	private String fachgruppe;
 	private boolean aktiv;
+	private boolean registriert;
 	
-	public User(String benutzername, char[] passwort, String nachname, String rolle, boolean aktiv){
+	public User(String benutzername, String nachname, String rolle, String fachgruppe, boolean registriert, boolean aktiv){
 		this.benutzername = benutzername;
-		this.passwort = passwort;
 		this.nachname = nachname;
+		this.fachgruppe = fachgruppe;
 		this.rolle = rolle;
 		this.aktiv = aktiv;
 	}	
@@ -21,14 +22,6 @@ public class User {
 
 	public void setAktiv(boolean aktiv) {
 		this.aktiv = aktiv;
-	}
-
-	public char[] getPasswort() {
-		return passwort;
-	}
-
-	public void setPasswort(char[] passwort) {
-		this.passwort = passwort;
 	}
 
 	public String getNachname() {
@@ -53,6 +46,22 @@ public class User {
 
 	public void setBenutzername(String benutzername) {
 		this.benutzername = benutzername;
+	}
+
+	public boolean isRegistriert() {
+		return registriert;
+	}
+
+	public void setRegistriert(boolean registriert) {
+		this.registriert = registriert;
+	}
+
+	public String getFachgruppe() {
+		return fachgruppe;
+	}
+
+	public void setFachgruppe(String fachgruppe) {
+		this.fachgruppe = fachgruppe;
 	}
 	
 	

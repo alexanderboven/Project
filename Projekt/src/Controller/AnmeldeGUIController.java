@@ -4,64 +4,30 @@ import java.sql.SQLException;
 import java.sql.DriverManager;
 import java.sql.Connection;
 
+import DB_Controller.AnmeldeGUISQLController;
+
 public class AnmeldeGUIController {
+	private AnmeldeGUISQLController controller;
+	
 	public AnmeldeGUIController(){
-		
+		controller = new AnmeldeGUISQLController();
 	}
 	
-	//test
+	public boolean passwortPruefen(String nutzer, char[] passwort){	
+		return controller.passwortPruefen(nutzer, passwort);
+	}
 	
-	public boolean passwortPruefen(String nutzer, char[] passwort){
-		
-		
-		return true;
+	public boolean nutzerAktiv(String nutzer){	
+		return controller.nutzerAktiv(nutzer);
 	}
-	public boolean nutzerAktiv(String nutzer){
-		
-		
-		return true;
+	
+	public boolean nutzerRegistriert(String nutzer){	
+		return controller.NutzerRegistriert(nutzer);
 	}
+	
 	
 	public Connection getConnection(){
-		try {
-
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-
-		} catch (ClassNotFoundException e) {
-
-			System.out.println("Where is your Oracle JDBC Driver?");
-			e.printStackTrace();
-			
-
-		}
-
-		System.out.println("Oracle JDBC Driver Registered!");
-
-		Connection connection = null;
-
-		try {
-
-			connection = DriverManager.getConnection(
-					"jdbc:oracle:thin:@aix1.fh-bielefeld.de:1521:d2", "dvi992",
-					"fh2274");
-
-		} catch (SQLException e) {
-
-			System.out.println("Connection Failed! Check output console");
-			e.printStackTrace();
-			
-
-		}
-
-		if (connection != null) {
-			System.out.println("You made it, take control your database now!");
-			return connection;
-		} else {
-			System.out.println("Failed to make connection!");
-		}
-	
-		
-		return null;
+		return controller.getConnection();
 	}
 	
 }

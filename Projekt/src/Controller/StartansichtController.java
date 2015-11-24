@@ -29,6 +29,7 @@ public class StartansichtController {
 	private User aktUser;
 	private Studiengang aktStudiengang;
 	private DB_Startansicht_Controller dbStartansichtController;
+	private Date serverDatum;
 
 	public StartansichtController(Connection con) {
 
@@ -36,8 +37,8 @@ public class StartansichtController {
 	}
 
 	public String bestimmeName(String nutzername, Connection con) {
-		// Verbindung mit DB_Controller
-		return null;
+		String name = dbStartansichtController.getName(nutzername);
+		return name;
 	}
 
 	public String bestimmeRolle(String nutzername, Connection con) {
@@ -67,91 +68,88 @@ public class StartansichtController {
 		return aktStudiengang;
 	}
 
-	public void aenderAktPruefung(int prfnr, Date datum, String prfForm,
-			int dauer, String raum, boolean aktiv) {
-		aktPruefung = new Pruefung(prfnr, datum, prfForm, dauer, raum, aktiv);
+	public void aenderAktPruefung(String bezeichnung, String prf_id, String mod_id, String stdg_id, String sem_id, String erstpruefer, String zweitpruefer, Date datum, int dauer, String art, String raum, 
+	int teilnehmerzahl, boolean aktiv) {
+		// String bezeichnung, String prf_id, String mod_id, String stdg_id, String sem_id, String erstpruefer, String zweitpruefer, Date datum, int dauer, String art, String raum, 
+		// int teilnehmerzahl, boolean aktiv
+		aktPruefung = new Pruefung(bezeichnung, prf_id, mod_id, stdg_id, sem_id, erstpruefer, zweitpruefer, datum, dauer, art, raum, 
+				teilnehmerzahl, aktiv);
 	}
 
-	public void aenderAktModul(String modbez, int modnr, boolean aktiv) {
-		aktModul = new Modul(modbez, modnr, aktiv);
+	public void aenderAktModul(String bezeichnung, String modNr, String fachgruppe, boolean aktiv) {
+		// String bezeichnung, String modNr, String fachgruppe, boolean aktiv
+		aktModul = new Modul(bezeichnung, modNr, fachgruppe, aktiv);
 	}
 
-	public void aenderAktFachgruppe(String bezeichnung, boolean aktiv) {
-		aktFachgruppe = new Fachgruppe(bezeichnung, aktiv);
+	public void aenderAktFachgruppe(String name, String referent, boolean aktiv) {
+		// String name, String referent, boolean aktiv
+		aktFachgruppe = new Fachgruppe(name, referent, aktiv);
 	}
 
-	public void aenderAktUser(String benutzername, char[] passwort,
-			String nachname, String rolle, boolean aktiv) {
-		aktUser = new User(benutzername, passwort, nachname, rolle, aktiv);
+	public void aenderAktUser(String benutzername, 
+			String nachname, String rolle, String fachgruppe, boolean registriert, boolean aktiv) {
+		// String benutzername, String nachname, String rolle, String fachgruppe, boolean registriert, boolean aktiv
+		aktUser = new User(benutzername, nachname, rolle, fachgruppe, registriert, aktiv);
 	}
 
-	public void aenderAktStudiengang(String bezeichnung, boolean aktiv) {
-		aktStudiengang = new Studiengang(bezeichnung, aktiv);
+	public void aenderAktStudiengang(String kuerzel, String bezeichnung, boolean aktiv) {
+		// String id,String bezeichnung, boolean aktiv
+		aktStudiengang = new Studiengang(kuerzel, bezeichnung, aktiv);
 	}
 
 	private Object[][] getData(String klasse) {
 
 		Object[][] datas = null;
-		if (klasse == "modul") {
-			// Modulbezeichnung, Modulnr., aktiv
-
-			datas = new Object[2][3];
-
-			datas[0][0] = "Rechnungswesen";
-			datas[0][1] = "1001";
-			datas[0][2] = true;
-
-			datas = new String[2][3];
-			datas[1][0] = "Produktion";
-			datas[1][1] = "1002";
-			datas[1][2] = false;
+		
+		if (klasse.equals("pruefung")) {
+			datas = dbStartansichtController.getAllePruefungen();
+		}
+			
+		if (klasse.equals("modul")) {
+		
+			datas = dbStartansichtController.getModule();
 		}
 		
-		if (klasse == "pruefung") {
-			// prfnr, dauer, prfForm, datum, raum, aktiv
-
-			datas = new Object[4][6];
-
-			datas[0][0] = "1001";
-			datas[0][1] = "120";
-			datas[0][2] = "klausur";
-			datas[0][3] = "12.12.1992";
-			datas[0][4] = "b3";
-			datas[0][5] = true;
-
-			datas[1][0] = "1002";
-			datas[1][1] = "30";
-			datas[1][2] = "Präsi";
-			datas[1][3] = "11.11.1990";
-			datas[1][4] = "b2";
-			datas[1][5] = false;
-
-			datas[2][0] = "1002";
-			datas[2][1] = "30";
-			datas[2][2] = "Präsi";
-			datas[2][3] = "11.11.1991";
-			datas[2][4] = "b2";
-			datas[2][5] = false;
-
-			datas[3][0] = "1002";
-			datas[3][1] = "30";
-			datas[3][2] = "Präsi";
-			datas[3][3] = "11.11.1993";
-			datas[3][4] = "b2";
-			datas[3][5] = false;
+		if (klasse.equals("eigenePruefung")) {
+			String nutzername = aktUser.getBenutzername();
+			datas = dbStartansichtController.getEigenePruefungen(nutzername);
+		}
+		
+		if (klasse.equals("FGPruefungen")) {
+			String nutzername = aktUser.getBenutzername();
+			datas = dbStartansichtController.getPruefungenFG(nutzername);
+		}
+		
+		if (klasse.equals("nutzer")) {
+		
+			datas = dbStartansichtController.getNutzer();
+		}
+		
+		if (klasse.equals("fachgruppe")) {
+		
+			datas = dbStartansichtController.getFachgruppen();
+		}
+		
+		if (klasse.equals("studiengang")) {
+			datas = dbStartansichtController.getStudiengaenge();
 		}
 		return datas;
-
 	}
 
 	public MyTableModel aendereTm(String klasse) {
-		System.out.println("andereTm + " + klasse);
-
 		Object[][] data = getData(klasse);
-		
+
 		MyTableModel tm = new MyTableModel(klasse, data);
 		return tm;
 
 	}
-}
 
+	public Date getServerDatum() {
+		return dbStartansichtController.getServerDate();
+	}
+
+	public Date getFrist(String semester) {
+
+		return dbStartansichtController.getFrist(semester);
+	}
+}

@@ -3,15 +3,25 @@ package model;
 public class Modul {
 
 	private String bezeichnung;
-	private int modNr;
+	private String modNr;
 	private boolean aktiv;
+	private String fachgruppe;
 	
-	public Modul(String bezeichnung, int modNr, boolean aktiv) {
+	public Modul(String bezeichnung, String modNr, String fachgruppe, boolean aktiv) {
 		this.bezeichnung = bezeichnung;
 		this.modNr = modNr;
 		this.aktiv = aktiv;
+		this.fachgruppe = fachgruppe;
 	}
 	
+	public String getFachgruppe() {
+		return fachgruppe;
+	}
+
+	public void setFachgruppe(String fachgruppe) {
+		this.fachgruppe = fachgruppe;
+	}
+
 	public boolean getAktiv() {
 		return aktiv;
 	}
@@ -20,11 +30,11 @@ public class Modul {
 		this.aktiv = aktiv;
 	}
 
-	public int getModNr() {
+	public String getModNr() {
 		return modNr;
 	}
 
-	public void setModNr(int modNr) {
+	public void setModNr(String modNr) {
 		this.modNr = modNr;
 	}
 
