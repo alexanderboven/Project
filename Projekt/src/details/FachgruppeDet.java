@@ -22,7 +22,7 @@ public class FachgruppeDet extends JFrame{
 	private JTable tabelleModule;
 	private JTable tabelleUser;
 
-	public FachgruppeDet(String bezeichnung, boolean aktiv, Connection con){
+	public FachgruppeDet(String name, String referent, boolean aktiv, Connection con){
 		setTitle("Detailansicht Fachgruppe");
 		getContentPane().setLayout(null);
 		

@@ -27,7 +27,7 @@ public class StudiengangDet extends JFrame{
 	private StudiengangDetController controller;
 	private JTextField textField;
 	
-	public StudiengangDet(final String bezeichnung, boolean aktiv, Connection con) {
+	public StudiengangDet(String kuerzel, final String bezeichnung, boolean aktiv, Connection con) {
 		setTitle("Detailansicht Studiengang");
 		getContentPane().setLayout(null);
 		controller = new StudiengangDetController(con);
@@ -129,17 +129,5 @@ public class StudiengangDet extends JFrame{
 		textField.setColumns(10);
 	}
 	
-	public static void main(String[] args){
-		final AnmeldeGUIController contr = new AnmeldeGUIController();
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					StudiengangDet frame = new StudiengangDet("WIF", true, contr.getConnection());
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 }

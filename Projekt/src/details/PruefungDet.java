@@ -22,7 +22,8 @@ public class PruefungDet extends JFrame{
 	private JTextField txtBez;
 	
 	
-	public PruefungDet(int prfnr, Date datum, String prfForm, int dauer, String raum, boolean aktiv, Connection con) {
+	public PruefungDet(String bezeichnung, String prf_id, String mod_id, String stdg_id, String sem_id, String erstpruefer, String zweitpruefer, Date datum, int dauer, String art, String raum, 
+			int teilnehmerzahl, boolean aktiv, Connection con) {
 		setTitle("Detailansicht Pr\u00FCfung");
 		getContentPane().setLayout(null);
 		

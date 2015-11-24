@@ -21,7 +21,7 @@ public class ModulDet extends JFrame{
 	private JTextField txtModnr;
 	private JTable table;
 	private JTextField textField;
-	public ModulDet(String modbez, int modnr, boolean aktiv, Connection con) {
+	public ModulDet(String bezeichnung, String modNr, String fachgruppe, boolean aktiv, Connection con) {
 		setTitle("Detailansicht Modul");
 		getContentPane().setLayout(null);
 		setBounds(100, 100, 508, 562);
@@ -36,12 +36,12 @@ public class ModulDet extends JFrame{
 		lblModulnummer.setBounds(-40, 52, 130, 14);
 		getContentPane().add(lblModulnummer);
 		
-		txtModbez = new JTextField(modbez);
+		txtModbez = new JTextField(bezeichnung);
 		txtModbez.setBounds(110, 24, 120, 20);
 		getContentPane().add(txtModbez);
 		txtModbez.setColumns(10);
 		
-		txtModnr = new JTextField(modnr);
+		txtModnr = new JTextField(modNr);
 		txtModnr.setBounds(110, 49, 120, 20);
 		getContentPane().add(txtModnr);
 		txtModnr.setColumns(10);

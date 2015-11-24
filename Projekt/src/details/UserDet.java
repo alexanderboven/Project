@@ -29,7 +29,8 @@ public class UserDet extends JFrame{
 	private JTextField textName;
 	private JTable table;
 	private UserDetController controller;
-	public UserDet(String name, final String nutzername, String rolle,boolean aktiv, final Connection con) {
+	public UserDet(final String benutzername, 
+			String nachname, String rolle, String fachgruppe, boolean registriert, boolean aktiv, final Connection con) {
 		setTitle("Nutzer Detailansicht");
 		getContentPane().setLayout(null);
 		setBounds(100, 100, 325, 226);
@@ -45,12 +46,12 @@ public class UserDet extends JFrame{
 		lblBenutzername.setBounds(10, 54, 81, 14);
 		getContentPane().add(lblBenutzername);
 		
-		textNutzername = new JTextField(nutzername);
+		textNutzername = new JTextField(benutzername);
 		textNutzername.setBounds(160, 51, 120, 20);
 		getContentPane().add(textNutzername);
 		textNutzername.setColumns(10);
 		
-		textName = new JTextField(name);
+		textName = new JTextField(nachname);
 		textName.setBounds(160, 26, 120, 20);
 		getContentPane().add(textName);
 		textName.setColumns(10);
@@ -75,7 +76,7 @@ public class UserDet extends JFrame{
 						try {
 							setVisible(false);
 							dispose();
-							Startansicht frame = new Startansicht(nutzername, con);
+							Startansicht frame = new Startansicht(benutzername, con);
 							frame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -109,7 +110,7 @@ public class UserDet extends JFrame{
 		getContentPane().add(separator);
 		
 		String[]headder = controller.getHeadder();
-		Object[][]data = controller.getData(nutzername);
+		Object[][]data = controller.getData(benutzername);
 		DefaultTableModel dtm = new DefaultTableModel(data, headder);
 		
 		JScrollPane sp = new JScrollPane();

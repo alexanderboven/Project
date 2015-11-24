@@ -59,16 +59,22 @@ public class MyActionListener implements ActionListener {
 				 */
 				
 
-				if (klasse.equals("pruefung")){
-					
+				if(klasse.equals("pruefung") || klasse.equals("FGPruefungen") || klasse.equals("eigenePruefung")){
+					// String bezeichnung, String prf_id, String mod_id, String stdg_id, String sem_id, String erstpruefer, String zweitpruefer, Date datum, int dauer, String art, String raum, 
+					// int teilnehmerzahl, boolean aktiv, Connection con
 					try {
 						Pruefung prfg = gui.startansichtController
 								.getAktPruefung();
 
-						PruefungDet frame = new PruefungDet(prfg.getPrfNr(),
-								prfg.getDatum(), prfg.getPruefungsForm(),
-								prfg.getDauer(), prfg.getRaum(),
-								prfg.getAktiv(), con);
+						PruefungDet frame = new PruefungDet(prfg.getBezeichnung(),
+								prfg.getPrf_id(), prfg.getMod_id(),
+								prfg.getStdg_id(), prfg.getSem_id(),
+								prfg.getErstpruefer(), prfg.getZweitpruefer(), 
+								prfg.getDatum(), prfg.getDauer(), prfg.getArt(),
+								prfg.getRaum(), 
+								prfg.getTeilnehmerzahl(),
+								prfg.isAktiv(), 
+								con);
 						frame.setVisible(true);
 
 					} catch (Exception e) {
@@ -76,14 +82,15 @@ public class MyActionListener implements ActionListener {
 					}
 				}
 				if (klasse.equals("modul")){
+					// String bezeichnung, String modNr, String fachgruppe, boolean aktiv, Connection con
 					try {
 						Modul mod = gui.startansichtController
 								.getAktModul();
 
 						
-						//String modbez, int modnr, boolean aktiv, Connection con
+						
 						ModulDet frame = new ModulDet(mod.getBezeichnung(), mod.getModNr(),
-								mod.getAktiv(), con);
+								mod.getFachgruppe(),mod.getAktiv(), con);
 						frame.setVisible(true);
 
 					} catch (Exception e) {
@@ -91,14 +98,13 @@ public class MyActionListener implements ActionListener {
 					}
 				}
 				if (klasse.equals("nutzer")){
+					// String benutzername, String nachname, String rolle, String fachgruppe, boolean registriert, boolean aktiv
 					try {
 						User user = gui.startansichtController
 								.getAktUser();
-
-						
-						//String name, final String nutzername,  String rolle, final Connection con
-						UserDet frame = new UserDet(user.getNachname(),user.getBenutzername(), user.getRolle(),
-								user.getAktiv(), con);
+					
+						UserDet frame = new UserDet(user.getBenutzername(),user.getNachname(), user.getRolle(),
+								user.getFachgruppe(),user.isRegistriert(),user.getAktiv(), con);
 						frame.setVisible(true);
 
 					} catch (Exception e) {
@@ -107,14 +113,13 @@ public class MyActionListener implements ActionListener {
 					
 				}
 				if (klasse.equals("fachgruppe")){
+					// String name, String referent, boolean aktiv
 					try {
 						Fachgruppe fg = gui.startansichtController
 								.getAktFachgruppe();
 
-						
-						//String bezeichnung, boolean aktiv, Connection con
 						FachgruppeDet frame = new FachgruppeDet(fg.getName(),
-								fg.getAktiv(), con);
+								fg.getReferent(), fg.getAktiv(), con);
 						frame.setVisible(true);
 
 					} catch (Exception e) {
@@ -122,13 +127,14 @@ public class MyActionListener implements ActionListener {
 					}
 				}
 				if(klasse.equals("studiengang")){
+					// String id,String bezeichnung, boolean aktiv
 					try {
 						Studiengang stdg = gui.startansichtController
 								.getAktStudiengang();
 
 						
 						//(String bezeichnung, boolean aktiv, Connection con)
-						StudiengangDet frame = new StudiengangDet(stdg.getBezeichnung(),
+						StudiengangDet frame = new StudiengangDet(stdg.getKuerzel(),stdg.getBezeichnung(),
 								stdg.getAktiv(), con);
 						frame.setVisible(true);
 
@@ -152,11 +158,12 @@ public class MyActionListener implements ActionListener {
 			
 			
 			*/
-			if (klasse.equals("pruefung")){
-			
+			if(klasse.equals("pruefung") || klasse.equals("FGPruefungen") || klasse.equals("eigenePruefung")){
+				// String bezeichnung, String prf_id, String mod_id, String stdg_id, String sem_id, String erstpruefer, String zweitpruefer, Date datum, int dauer, String art, String raum, 
+				// int teilnehmerzahl, boolean aktiv
 				try {
-					PruefungDet frame = new PruefungDet(0, new Date(
-							"12.12.1993"), "", 0, "", true, con);
+					PruefungDet frame = new PruefungDet("", "","","","","","",new Date(
+							"12.12.1993"), 0, "", "",0,true, con);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -164,16 +171,18 @@ public class MyActionListener implements ActionListener {
 			}
 			
 			if (klasse.equals("modul")){
+				// String bezeichnung, String modNr, String fachgruppe, boolean aktiv
 				try {
-					ModulDet frame = new ModulDet("", 0, true, con);
+					ModulDet frame = new ModulDet("","","", true, con);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 			if (klasse.equals("user")){
+				// String benutzername, String nachname, String rolle, String fachgruppe, boolean registriert, boolean aktiv
 				try {
-					UserDet frame = new UserDet("", "", "", true, con);
+					UserDet frame = new UserDet("", "", "", "", false,true, con);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -181,8 +190,9 @@ public class MyActionListener implements ActionListener {
 			}
 			
 			if (klasse.equals("fachgruppe")){
+				// String name, String referent, boolean aktiv
 				try {
-					FachgruppeDet frame = new FachgruppeDet("",  true, con);
+					FachgruppeDet frame = new FachgruppeDet("","",  true, con);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -190,8 +200,9 @@ public class MyActionListener implements ActionListener {
 			}
 			
 			if (klasse.equals("studiengang")){
+				// String id,String bezeichnung, boolean aktiv
 				try {
-					StudiengangDet frame = new StudiengangDet("", true, con);
+					StudiengangDet frame = new StudiengangDet("","", true, con);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

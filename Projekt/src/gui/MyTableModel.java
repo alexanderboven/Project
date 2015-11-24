@@ -1,27 +1,21 @@
 package gui;
-
 import javax.swing.table.DefaultTableModel;
-
 public class MyTableModel extends DefaultTableModel {
 	private String klasse;
 	private Object[][] data;
 	private Class[] columnTypes= new Class[] { Object.class, Object.class,
 			Object.class, Object.class, Object.class, Boolean.class };
-
 	private static String[] columnHeaderUser = new String[] { "Benutzername",
-			"Nachname", "Rolle", "aktiv" };
+			"Nachname", "Rolle", "Fachgruppen", "Status", "Registriert" };
 	private static String[] columnHeaderFachgurppe = new String[] {
-			"Bezeichnung", "aktiv" };
+			"Name", "ID", "Referent", "Status" };
 	private static String[] columnHeaderModul = new String[] {
-			"Modulbezeichnung", "Modulnr.", "aktiv" };
-	private static String[] columnHeaderPrfkonst = new String[] {
-			"Studiengänge", "Erstpruefer", "Zweitpruefer", "Prüfungen" };
-	private static String[] columnHeaderPrfg = new String[] { "Pruefungsnr.",
-			"Dauer", "Pruefungsform", "Datum", "Raum", "aktiv" };
-	private static String[] columnHeaderStdg = new String[] { "Bezeichnung",
-			"aktiv" };
-
-	
+			"Modulbezeichnung", "Modulnr.", "Fachgruppe", "Status" };
+	//private static String[] columnHeaderPrfkonst = new String[] {
+		//	"Studiengänge", "Erstpruefer", "Zweitpruefer", "Prüfungen" };
+	private static String[] columnHeaderPrfg = new String[] { "Bezeichnung",
+			"Prüf-ID", "Modul-ID", "Studiengang-ID", "Semster-ID", "Erstprüfer", "Zweitprüfer", "Datum", "Dauer", "Art", "Raum", "Anmeldezahl", "Status" };
+	private static String[] columnHeaderStdg = new String[] { "Name", "Stdg-ID", "Status" };
 	
 	
 	public MyTableModel(String klasse, Object[][] data) {
@@ -60,26 +54,26 @@ public class MyTableModel extends DefaultTableModel {
 		
 		if (klasse.equals("nutzer")){
 			columnTypes = new Class[] { Object.class, Object.class,
-					Object.class, Boolean.class };
+					Object.class,  Object.class,Boolean.class,Boolean.class  };
 		}
 			
 		if(klasse.equals("fachgruppe")){
-				columnTypes = new Class[] { Object.class, Boolean.class };
+				columnTypes = new Class[] { Object.class, Object.class, Object.class, Boolean.class };
 		}
 		
 		if(klasse.equals("modul")){
-				columnTypes = new Class[] { Object.class, Object.class,
+				columnTypes = new Class[] { Object.class, Object.class, Object.class,
 					Boolean.class };
 		}
 		
 		
-		if(klasse.equals("pruefung")){
+		if(klasse.equals("pruefung") || klasse.equals("FGPruefungen") || klasse.equals("eigenePruefung")){
 			columnTypes = new Class[] { Object.class, Object.class,
-					Object.class, Object.class, Object.class, Boolean.class };
+					Object.class, Object.class, Object.class,  Object.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class, Boolean.class };
 		}
 			
 		if(klasse.equals("studiengang")){
-			columnTypes = new Class[] { Object.class, Boolean.class };
+			columnTypes = new Class[] { Object.class, Object.class,Boolean.class };
 		}
 			
 		}
@@ -101,7 +95,7 @@ public class MyTableModel extends DefaultTableModel {
 		}
 		
 		
-		if(klasse.equals("pruefung")){
+		if(klasse.equals("pruefung") || klasse.equals("FGPruefungen") || klasse.equals("eigenePruefung")){
 			return columnHeaderPrfg;
 		}
 			
